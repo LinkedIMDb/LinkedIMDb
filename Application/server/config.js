@@ -2,8 +2,7 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'nana',
-  database: 'linkedimdb'
+  database: 'auth'
 });
 
 connection.connect(function(err) {
