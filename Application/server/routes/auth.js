@@ -2,27 +2,21 @@
 
 const express = require('express');
 const validator = require('validator');
+const formValidator = require('../controllers/formValidator');
 const authController = require('../controllers/authController');
 
 // Create a router specifically for authentication
 const router = new express.Router();
 
 router.post('/signup',
-  authController.validateSignupInput,
-  (req, res) => {
-    if (!res.locals.success) {
-      return res.status(400).json(res.locals);
-    }
-    return res.status(200).end();
-});
+  formValidator.validateSignupInput,
+  authController.createUser,
+  (req, res) => res.send(200)
+);
 
 router.post('/login',
-  authController.validateLoginInput,
-  (req ,res) => {
-    if (!res.locals.success) {
-      return res.status(400).json(res.locals);
-    }
-    return res.status(200).end();
-});
+  formValidator.validateLoginInput,
+  (req, res) => res.send(200)
+);
 
 module.exports = router;
