@@ -1,4 +1,21 @@
+const db = require('../config');
+const sqlstring = require('sqlstring');
+
 const formValidator = {};
+
+formValidator.checkExistingUsername = (req, res, next) => {
+  db.query(
+    sqlstring.format('SELECT username FROM user WHERE username = ?', [req.body.username]), (err, results, fields) => {
+      console.log(results);
+      if (err) return res.status(400).send(err);
+      if (results.length) {
+        let error= 'The username you provided has been taken. Please choose a new username.'
+        return res.status(400).json(error);
+      }
+      return next();
+    }
+  );
+}
 
 // Validate that the user has input a valid email address, password (>6 characters), first name, and last name.
 formValidator.validateSignupInput = (req, res, next) => {

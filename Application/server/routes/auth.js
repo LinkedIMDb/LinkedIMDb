@@ -9,6 +9,7 @@ const authController = require('../controllers/authController');
 const router = new express.Router();
 
 router.post('/signup',
+  formValidator.checkExistingUsername,
   formValidator.validateSignupInput,
   authController.createUser,
   (req, res) => res.send(200)
@@ -16,6 +17,7 @@ router.post('/signup',
 
 router.post('/login',
   formValidator.validateLoginInput,
+  authController.verifyUser,
   (req, res) => res.send(200)
 );
 
