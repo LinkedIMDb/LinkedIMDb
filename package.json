@@ -1,0 +1,30 @@
+{
+  "name": "linkedimdb",
+  "version": "1.0.0",
+  "description": "Networking tool for the film industry",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "nodemon": "^1.17.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "validator": "^9.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinkedIMDb/LinkedIMDb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adifiore/LinkedIMDb/issues"
+  },
+  "homepage": "https://github.com/adifiore/LinkedIMDb#readme"
+}
