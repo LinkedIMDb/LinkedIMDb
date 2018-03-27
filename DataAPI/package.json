@@ -1,13 +1,25 @@
 {
-  "name": "DataAPI",
+  "name": "linkedimdb",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+  "description": "Networking tool for the film industry",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.55.0",
+    "nodemon": "^1.17.2"
   },
-  "keywords": [],
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinkedIMDb/LinkedIMDb.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adifiore/LinkedIMDb/issues"
+  },
+  "homepage": "https://github.com/adifiore/LinkedIMDb#readme"
 }
