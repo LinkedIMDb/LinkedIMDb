@@ -5,25 +5,21 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-const SignUpForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  user,
-}) => (
+const SignUpForm = (props) => {
+  return (
   <Card className='container'>
-    <form action='/' onSubmit={onSubmit}>
+    <form action='/' >
       <h2 className="card-heading">Sign Up</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {props.errors.summary && <p className="error-message">{props.errors.summary}</p>}
   
       <div className="field-line">
         <TextField
           floatingLabelText="Name"
           name="name"
-          errorText={errors.name}
-          onChange={onChange}
-          value={user.name}
+          errorText={props.errors.name}
+          // onChange={onChange}
+          value={props.user.name}
         />
       </div>
 
@@ -31,9 +27,9 @@ const SignUpForm = ({
         <TextField
           floatingLabelText="Email"
           name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
+          errorText={props.errors.email}
+          // onChange={onChange}
+          value={props.user.email}
         />
       </div>
 
@@ -42,9 +38,9 @@ const SignUpForm = ({
           floatingLabelText="Password"
           type="password"
           name="password"
-          onChange={onChange}
-          errorText={errors.password}
-          value={user.password}
+          // onChange={onChange}
+          errorText={props.errors.password}
+          value={props.user.password}
         />
       </div>
 
@@ -52,16 +48,16 @@ const SignUpForm = ({
         <RaisedButton type="submit" label="Create New Account" primary />
       </div>
 
-      <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText>
+      {/* <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
     </form>
   </Card>
-);
+)};
 
-SignUpForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
-};
+// SignUpForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   errors: PropTypes.object.isRequired,
+//   user: PropTypes.object.isRequired
+// };
 
 export default SignUpForm;

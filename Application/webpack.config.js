@@ -5,33 +5,36 @@ const  path = require('path');
 // const BUILD_DIR = path.resolve(__dirname, './build');
 
 module.exports = {
-  entry: [
+  entry: 
     // 'react-hot-loader/patch',
-    './src/index.js'
-  ],
+    './client/src/index.js'
+  ,
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        loader: 'babel-loader',
+        query: {
+          presets:[ 'es2015', 'react', 'stage-2' ]
+        }
       }
     ]
   },
-  resolve: {
-    extensions: ['*', '.js', '.jsx']
-  },
+  // resolve: {
+  //   extensions: ['*', '.js', '.jsx']
+  // },
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'client/dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
-  watch: true,
+  // watch: true,
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin()
   // ],
-  devServer: {
-    contentBase: './dist',
+  // devServer: {
+  //   contentBase: './dist',
     // hot: true
-  }
+  // }
 };

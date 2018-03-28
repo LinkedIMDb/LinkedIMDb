@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const path = require('path');
 
 // Connect to db
 const config = require('./config');
@@ -8,7 +9,8 @@ const config = require('./config');
 const app = express();
 
 // Serve static files:
-// *****************************************************************
+app.use(express.static(path.join(__dirname, '../client/')));
+// ***************************************************************
 
 // Parse HTTP body messages
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,6 +34,7 @@ const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
 
 // Start the server
 app.listen(3000, () => {
