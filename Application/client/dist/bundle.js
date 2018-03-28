@@ -39783,6 +39783,8 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -39797,38 +39799,67 @@ var Search_Inputs = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Search_Inputs.__proto__ || Object.getPrototypeOf(Search_Inputs)).call(this, props));
 
-    _this.state = { term: '' };
+    _this.state = {
+      searchTerm1: '',
+      searchTerm2: '',
+      connectionResults: []
+    };
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
 
     return _this;
   }
-  // Submit Search
-
 
   _createClass(Search_Inputs, [{
-    key: 'handleSubmitSearch',
-    value: function handleSubmitSearch() {
-      console.log('submitted');
+    key: 'handleChange',
+    value: function handleChange(event) {
+      var target = event.target;
+      console.log(target);
+      var value = target.type;
+
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+    // Submit Search
+
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           'form',
-          { action: '#', onSubmit: this.handleSubmitSearch },
+          { action: '#', onSubmit: this.handleSubmit },
           _react2.default.createElement(
             'label',
             null,
             'Name 1',
-            _react2.default.createElement('input', { type: 'text', name: 'search-user1', value: 'Lauren MackUk' })
+            _react2.default.createElement('input', {
+              type: 'text',
+              id: 'searchTerm1',
+              value: this.state.searchTerm1,
+              name: 'searchTerm1',
+              onChange: this.handleChange
+            })
           ),
           _react2.default.createElement(
             'label',
             null,
             'Name 2',
-            _react2.default.createElement('input', { type: 'text', name: 'search-user2', value: 'Woody Bird' })
+            _react2.default.createElement('input', {
+              type: 'text',
+              id: 'searchTerm2',
+              value: this.state.searchTerm2,
+              name: 'searchTerm2',
+              onChange: this.handleChange
+            })
           ),
           _react2.default.createElement(
             'div',
