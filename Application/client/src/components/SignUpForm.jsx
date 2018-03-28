@@ -16,10 +16,10 @@ const SignUpForm = (props) => {
       <div className="field-line">
         <TextField
           floatingLabelText="Name"
-          name="name"
-          errorText={props.errors.name}
+          name="username"
+          errorText={props.errors.username}
           onChange={props.onChange}
-          value={props.user.name}
+          value={props.user.username}
         />
       </div>
 
@@ -41,6 +41,26 @@ const SignUpForm = (props) => {
           onChange={props.onChange}
           errorText={props.errors.password}
           value={props.user.password}
+        />
+      </div>
+
+      <div className="field-line">
+        <TextField
+          floatingLabelText="First Name"
+          name="firstname"
+          onChange={props.onChange}
+          errorText={props.errors.firstname}
+          value={props.user.firstname}
+        />
+      </div>
+
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Last Name"
+          name="lastname"
+          onChange={props.onChange}
+          errorText={props.errors.lastname}
+          value={props.user.lastname}
         />
       </div>
 

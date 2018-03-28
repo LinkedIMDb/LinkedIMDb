@@ -6444,8 +6444,10 @@ var SignUpPage = function (_React$Component) {
     _this.state = {
       errors: {},
       user: {
+        username: '',
         email: '',
-        name: '',
+        firstname: '',
+        lastname: '',
         password: ''
       }
     };
@@ -6456,7 +6458,7 @@ var SignUpPage = function (_React$Component) {
   }
 
   /**
-   * Change the user object.
+   * Change the user object on each keypress
    *
    * @param {object} event - the JavaScript event object
    */
@@ -6483,12 +6485,42 @@ var SignUpPage = function (_React$Component) {
   }, {
     key: 'processForm',
     value: function processForm(event) {
+      var _this2 = this;
+
       // prevent default action. in this case, action is the form submission event
       event.preventDefault();
+      var formData = {
+        username: this.state.user.username,
+        email: this.state.user.email,
+        password: this.state.user.password,
+        firstname: this.state.user.firstname,
+        lastname: this.state.user.lastname
+      };
 
-      console.log('name:', this.state.user.name);
-      console.log('email:', this.state.user.email);
-      console.log('password:', this.state.user.password);
+      fetch('/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res.status === 200) {
+          _this2.setState({
+            errors: {}
+          });
+          console.log('Valid form.');
+        } else {
+          console.log(res);
+          var errors = res.errors ? res.errors : {};
+          errors.summary = res.message;
+          _this2.setState({ errors: errors });
+        }
+      }).catch(function (err) {
+        console.log('ERROR!', err);
+      });
     }
 
     /**
@@ -6567,10 +6599,10 @@ var SignUpForm = function SignUpForm(props) {
         { className: 'field-line' },
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Name',
-          name: 'name',
-          errorText: props.errors.name,
+          name: 'username',
+          errorText: props.errors.username,
           onChange: props.onChange,
-          value: props.user.name
+          value: props.user.username
         })
       ),
       _react2.default.createElement(
@@ -6594,6 +6626,28 @@ var SignUpForm = function SignUpForm(props) {
           onChange: props.onChange,
           errorText: props.errors.password,
           value: props.user.password
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'First Name',
+          name: 'firstname',
+          onChange: props.onChange,
+          errorText: props.errors.firstname,
+          value: props.user.firstname
+        })
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'field-line' },
+        _react2.default.createElement(_TextField2.default, {
+          floatingLabelText: 'Last Name',
+          name: 'lastname',
+          onChange: props.onChange,
+          errorText: props.errors.lastname,
+          value: props.user.lastname
         })
       ),
       _react2.default.createElement(
@@ -39134,7 +39188,7 @@ var LoginPage = function (_React$Component) {
     _this.state = {
       errors: {},
       user: {
-        email: '',
+        username: '',
         password: ''
       }
     };
@@ -39160,40 +39214,30 @@ var LoginPage = function (_React$Component) {
       event.preventDefault();
 
       // create a string for an HTTP body message
-      var email = encodeURIComponent(this.state.user.email);
+      var username = encodeURIComponent(this.state.user.username);
       var password = encodeURIComponent(this.state.user.password);
-      var formData = 'email=' + email + '&password=' + password;
+      var formData = 'username=' + username + '&password=' + password;
 
       // create an AJAX request
-      var xhr = new XMLHttpRequest();
-      xhr.open('post', '/auth/login');
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
-          // success
-
-          // change the component-container state
+      fetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        if (res.status === 200) {
           _this2.setState({
             errors: {}
           });
-
-          console.log('The form is valid');
+          console.log('Valid form.');
         } else {
-          // failure
-
-          // change the component state
-          var errors = xhr.response.errors ? xhr.response.errors : {};
-          errors.summary = xhr.response.message;
-
-          _this2.setState({
-            errors: errors
-          });
+          var errors = res.errors ? res.errors : {};
+          errors.summary = res.message;
+          _this2.setState({ errors: errors });
         }
       });
-      xhr.send(formData);
     }
-
     /**
      * Change the user object.
      *

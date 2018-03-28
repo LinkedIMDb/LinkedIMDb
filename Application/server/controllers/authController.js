@@ -19,7 +19,9 @@ authController.createUser = (req, res, next) => {
       if (err) return res.status(400).send(err);
       else {
         // store primary key of created user;
-        res.locals.userId = results.insertId;
+        res.locals.user_Id = results.insertId;
+        const token = jwt.sign(results[0].user_id, jwtSecret);
+        // res.locals.token = token;
         return next();
       }
     }

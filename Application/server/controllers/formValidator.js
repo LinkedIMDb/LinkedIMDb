@@ -56,6 +56,7 @@ formValidator.validateSignupInput = (req, res, next) => {
   res.locals.errors = errors;
 
   if (!formIsValid) {
+    console.log(res.locals);
     return res.status(400).json(res.locals);
   }
   // return res.status(200).end();
