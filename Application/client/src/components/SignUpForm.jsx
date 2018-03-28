@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 const SignUpForm = (props) => {
   return (
   <Card className='container'>
-    <form action='/' >
+    <form action='/' onSubmit={props.onSubmit}>
       <h2 className="card-heading">Sign Up</h2>
 
       {props.errors.summary && <p className="error-message">{props.errors.summary}</p>}
@@ -18,7 +18,7 @@ const SignUpForm = (props) => {
           floatingLabelText="Name"
           name="name"
           errorText={props.errors.name}
-          // onChange={onChange}
+          onChange={props.onChange}
           value={props.user.name}
         />
       </div>
@@ -28,7 +28,7 @@ const SignUpForm = (props) => {
           floatingLabelText="Email"
           name="email"
           errorText={props.errors.email}
-          // onChange={onChange}
+          onChange={props.onChange}
           value={props.user.email}
         />
       </div>
@@ -38,7 +38,7 @@ const SignUpForm = (props) => {
           floatingLabelText="Password"
           type="password"
           name="password"
-          // onChange={onChange}
+          onChange={props.onChange}
           errorText={props.errors.password}
           value={props.user.password}
         />
@@ -53,11 +53,11 @@ const SignUpForm = (props) => {
   </Card>
 )};
 
-// SignUpForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   errors: PropTypes.object.isRequired,
-//   user: PropTypes.object.isRequired
-// };
+SignUpForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
 
 export default SignUpForm;
