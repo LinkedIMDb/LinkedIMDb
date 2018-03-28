@@ -1,4 +1,8 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
+const  path = require('path');
+
+
+// const BUILD_DIR = path.resolve(__dirname, './build');
 
 module.exports = {
   entry: [
@@ -22,6 +26,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
+  watch: true,
   // plugins: [
   //   new webpack.HotModuleReplacementPlugin()
   // ],
