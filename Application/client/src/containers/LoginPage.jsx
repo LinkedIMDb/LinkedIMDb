@@ -11,7 +11,7 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       user: {
-        email: '',
+        username: '',
         password: ''
       }
     };
@@ -30,40 +30,30 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const email = encodeURIComponent(this.state.user.email);
+    const username = encodeURIComponent(this.state.user.username);
     const password = encodeURIComponent(this.state.user.password);
-    const formData = `email=${email}&password=${password}`;
+    const formData = `username=${username}&password=${password}`;
 
     // create an AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        // success
-
-        // change the component-container state
-        this.setState({
-          errors: {}
-        });
-
-        console.log('The form is valid');
-      } else {
-        // failure
-
-        // change the component state
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
-        });
-      }
-    });
-    xhr.send(formData);
+    fetch('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
+      })
+      .then(res => res.json())
+      .then((res) => {
+        if (res.status === 200){
+          this.setState({
+            errors: {}
+          });
+          console.log('Valid form.')
+        } else {
+          const errors = res.errors ? res.errors : {};
+          errors.summary = res.message;
+          this.setState({ errors });
+        }
+      });
   }
-
   /**
    * Change the user object.
    *
