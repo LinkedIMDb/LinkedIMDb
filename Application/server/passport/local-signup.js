@@ -1,7 +1,13 @@
 const PassportLocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
-module.exports = new PassportLocalStrategy((req, username, password, next) => {
+
+module.exports = new PassportLocalStrategy({
+  // usernameField: 'username',
+  // passwordField: 'password',
+  session: false,
+  passReqToCallback: true
+}, (req, username, password, done) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, SALT_WORK_FACTOR);
   db.query(
     sqlstring.format(

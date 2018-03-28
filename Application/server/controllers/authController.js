@@ -52,6 +52,7 @@ authController.verifyUser = (req, res, next) => {
 // Check authorization header
 authController.checkAuthenticated = (req, res, next) => {
   if (!req.headers.authorization) {
+    console.log('no auth header');
     return res.sendStatus(401);
   }
 
@@ -60,36 +61,14 @@ authController.checkAuthenticated = (req, res, next) => {
 
   return jwt.verify(token, jwtSecret, (err, decoded) => {
     if (err) {
-      // unauthorized
+      console.log('your token is bad.');
       return res.sendStatus(401);
     }
 
     // decoded token (using jwt secret);
-    const user_id = decoded;
-
-    // Check db for user;
-    db.query(
-      sqlstring.format(
-        'SELECT username, password, user_id FROM user WHERE username = ?', [req.body.username]
-      ),
-      (err, results, fields) => {
-        // Results is an array of "RowDataPacket"s
-        if (err) return res.status(500).send(err);
-        if (results.length) {
-          // Compare the provided password with the hashed password
-          if (bcrypt.compareSync(req.body.password, results[0].password)) {
-  
-            res.locals.user_id = results[0].user_id;
-            const token = jwt.sign(results[0].user_id, jwtSecret);
-            res.locals.token = token;
-            return next();
-          }
-        }
-        return res.status(400).send('Invalid credentials');
-      }
-    );
+    res.locals.user_id = decoded;
+    next();
   });
-
 }
 
 module.exports = authController;

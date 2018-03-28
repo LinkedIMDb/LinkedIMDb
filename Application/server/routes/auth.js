@@ -18,8 +18,8 @@ router.post('/signup',
 
 router.post('/login',
   formValidator.validateLoginInput,
-  authController.checkAuthenticated, // only with jwt
-  // authController.verifyUser, // without jwt
+  // authController.checkAuthenticated, // only with jwt
+  authController.verifyUser,
   (req, res) => res.send(200)
 );
 
