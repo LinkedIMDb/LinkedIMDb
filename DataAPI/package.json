@@ -18,8 +18,8 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/adifiore/LinkedIMDb/issues"
-  },
-  "homepage": "https://github.com/adifiore/LinkedIMDb#readme"
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.85.0"
+  }
 }
