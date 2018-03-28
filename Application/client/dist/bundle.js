@@ -5175,6 +5175,10 @@ var _LoginForm = __webpack_require__(115);
 
 var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
+var _SignUpPage = __webpack_require__(294);
+
+var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
+
 var _SignUpForm = __webpack_require__(128);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
@@ -5192,8 +5196,7 @@ var App = function App() {
     _react2.default.createElement(
       'div',
       null,
-      'ehiefheohedoedhoe',
-      _react2.default.createElement(_SignUpForm2.default, null)
+      _react2.default.createElement(_SignUpPage2.default, null)
     )
   );
 };
@@ -6429,26 +6432,22 @@ var _TextField2 = _interopRequireDefault(_TextField);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SignUpForm = function SignUpForm(_ref) {
-  var onSubmit = _ref.onSubmit,
-      onChange = _ref.onChange,
-      errors = _ref.errors,
-      user = _ref.user;
+var SignUpForm = function SignUpForm(props) {
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
     _react2.default.createElement(
       'form',
-      { action: '/', onSubmit: onSubmit },
+      { action: '/' },
       _react2.default.createElement(
         'h2',
         { className: 'card-heading' },
         'Sign Up'
       ),
-      errors.summary && _react2.default.createElement(
+      props.errors.summary && _react2.default.createElement(
         'p',
         { className: 'error-message' },
-        errors.summary
+        props.errors.summary
       ),
       _react2.default.createElement(
         'div',
@@ -6456,9 +6455,9 @@ var SignUpForm = function SignUpForm(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Name',
           name: 'name',
-          errorText: errors.name,
-          onChange: onChange,
-          value: user.name
+          errorText: props.errors.name
+          // onChange={onChange}
+          , value: props.user.name
         })
       ),
       _react2.default.createElement(
@@ -6467,9 +6466,9 @@ var SignUpForm = function SignUpForm(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Email',
           name: 'email',
-          errorText: errors.email,
-          onChange: onChange,
-          value: user.email
+          errorText: props.errors.email
+          // onChange={onChange}
+          , value: props.user.email
         })
       ),
       _react2.default.createElement(
@@ -6478,37 +6477,27 @@ var SignUpForm = function SignUpForm(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Password',
           type: 'password',
-          name: 'password',
-          onChange: onChange,
-          errorText: errors.password,
-          value: user.password
+          name: 'password'
+          // onChange={onChange}
+          , errorText: props.errors.password,
+          value: props.user.password
         })
       ),
       _react2.default.createElement(
         'div',
         { className: 'button-line' },
         _react2.default.createElement(_RaisedButton2.default, { type: 'submit', label: 'Create New Account', primary: true })
-      ),
-      _react2.default.createElement(
-        _Card.CardText,
-        null,
-        'Already have an account? ',
-        _react2.default.createElement(
-          _reactRouter.Link,
-          { to: '/login' },
-          'Log in'
-        )
       )
     )
   );
 };
 
-SignUpForm.propTypes = {
-  onSubmit: _propTypes2.default.func.isRequired,
-  onChange: _propTypes2.default.func.isRequired,
-  errors: _propTypes2.default.object.isRequired,
-  user: _propTypes2.default.object.isRequired
-};
+// SignUpForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   errors: PropTypes.object.isRequired,
+//   user: PropTypes.object.isRequired
+// };
 
 exports.default = SignUpForm;
 
