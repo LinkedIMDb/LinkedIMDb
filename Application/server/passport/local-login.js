@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 
 module.exports = new PassportLocalStrategy(
   (req, username, password, next) => {
-  const userData = {
-    username = username.trim(),
-    password = password.trim()
-  };
+  // const userData = {
+  //   username = username.trim(),
+  //   password = password.trim()
+  // };
 
   db.query(
     sqlstring.format(

@@ -7,3 +7,5 @@ router.get('/home', (req, res) => {
     message: 'You are authorized to see this secret page'
   });
 });
+
+module.exports = router;

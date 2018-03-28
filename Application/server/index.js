@@ -18,20 +18,20 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // Load passport strategies - these may not be necessary.
-// const localSignupStrategy = require('./server/passport/local-signup');
-// const localLoginStrategy = require('./server/passport/local-login');
-// passport.use('logal-signup', localSignupStrategy);
-// passport.use('local-login', localLoginStrategy);
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+passport.use('logal-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
 
 // Check for authentication before any api call
 const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
 app.use('/api', authCheckMiddleware);
 
-// Authentication Routes
+// Routes for authentication and api
 const authRoutes = require('./routes/auth');
-// const apiRoutes = require('./routes/api');
+const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
-// app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 // Start the server
 app.listen(3000, () => {
