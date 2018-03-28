@@ -11,8 +11,10 @@ class SignUpPage extends React.Component {
     this.state = {
       errors: {},
       user: {
+        username: '',
         email: '',
-        name: '',
+        firstname: '',
+        lastname: '',
         password: ''
       }
     };
@@ -22,7 +24,7 @@ class SignUpPage extends React.Component {
   }
 
   /**
-   * Change the user object.
+   * Change the user object on each keypress
    *
    * @param {object} event - the JavaScript event object
    */
@@ -44,10 +46,39 @@ class SignUpPage extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
+    const formData = {
+      username : this.state.user.username,
+      email : this.state.user.email,
+      password : this.state.user.password,
+      firstname : this.state.user.firstname,
+      lastname : this.state.user.lastname
+    };
 
-    console.log('name:', this.state.user.name);
-    console.log('email:', this.state.user.email);
-    console.log('password:', this.state.user.password);
+    fetch('/auth/signup', {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.status === 200){
+          this.setState({
+            errors: {}
+          });
+          console.log('Valid form.')
+        } else {
+          console.log(res);
+          const errors = res.errors ? res.errors : {};
+          errors.summary = res.message;
+          this.setState({ errors });
+        }
+      })
+      .catch(err => {
+        console.log('ERROR!', err);
+      });
   }
 
   /**
