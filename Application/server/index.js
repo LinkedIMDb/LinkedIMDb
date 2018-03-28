@@ -1,41 +1,40 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const path = require('path');
 
 // Connect to db
 const config = require('./config');
-// const mysql = require('mysql');
-
-// Connect to db
-// *****************************************************************
 
 const app = express();
 
 // Serve static files:
-// *****************************************************************
+app.use(express.static(path.join(__dirname, '../client/')));
+// ***************************************************************
 
 // Parse HTTP body messages
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Initialize and use passport middleware
 app.use(passport.initialize());
 
-// Load passport strategies
-// const localSignupStrategy = require('./server/passport/local-signup');
-// const localLoginStrategy = require('./server/passport/local-login');
-// passport.use('logal-signup', localSignupStrategy);
-// passport.use('local-login', localLoginStrategy);
+// Load passport strategies - these may not be necessary.
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+passport.use('logal-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
 
-// Use authentication checker middleware
-// const authCheckMiddleware = require('./server/middleware/auth-check');
-// app.use('/api', authCheckMiddleware);
+// Check for authentication before any api call
+const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
+app.use('/api', authCheckMiddleware);
 
-// Authentication Routes
+// Routes for authentication and api
 const authRoutes = require('./routes/auth');
-// const apiRoutes = require('./routes/api');
+const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
-// app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
+
 
 // Start the server
 app.listen(3000, () => {
