@@ -40,7 +40,7 @@ class Search_Inputs extends React.Component {
         .then(res => res.json())
         .then(path => {
           // Set the connections Results with our response
-          console.log(path);
+          this.props.getPath(path);
         })
   }
 

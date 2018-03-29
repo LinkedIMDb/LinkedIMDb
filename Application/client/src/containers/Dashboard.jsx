@@ -18,9 +18,12 @@ class Dashboard extends React.Component {
   render() {
     // Check history to see if user has requested to view saved connections
     const showHistory = [];
-    this.props.history.forEach((path, i) => {
-      showHistory.push(<SearchList key={i} item={path} />)
-    });
+    if(this.props.history.length) {
+      this.props.history.forEach((path, i) => {
+        showHistory.push(<SearchList key={i} item={path} />)
+      });
+    }
+
 
     return (
       <div id="dashboard-container">
@@ -39,14 +42,14 @@ class Dashboard extends React.Component {
 
             <RaisedButton label="Saved"
               primary style={style}
-              onClick={() => this.props.getSaved}
+              onClick={this.props.getSaved}
             />
           </div>
 
         </div>
-        <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname}/>
+        <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname} getPath={this.props.getPath} />
         {this.props.connectResults.length > 0 && <SearchList item={this.props.connectResults}/>}     
-        {this.props.connectResults && this.props.connectResults.length && <RaisedButton label="Saved This Path"
+        {this.props.connectResults && this.props.connectResults.length > 0 && <RaisedButton label="Saved This Path"
           primary style={style}
           onClick={() => {
             // console.log('there is stuff here', this.props.connectResults);
@@ -55,7 +58,6 @@ class Dashboard extends React.Component {
         />}
         
         {this.props.history.length > 0 && showHistory}
-
       </div>
     )
   }

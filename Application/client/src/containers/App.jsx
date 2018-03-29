@@ -27,28 +27,6 @@ class App extends React.Component {
       signedIn: false,
       cookieChecked: false,
       connectResults: [],
-      // connectResults: [{ name: 'David Ayer', movie: 'Bright', department: 'Produced' },
-      // { name: 'Lindsay Graham',
-      //   movie: 'Bright',
-      //   department: 'Casting' },
-      // { name: 'Walter Mirisch',
-      //   movie: 'The Magnificent Seven',
-      //   department: 'Produced' },
-      // { name: 'Anthony Perkins',
-      //   movie: 'Friendly Persuasion',
-      //   department: 'Actor' },
-      // { name: 'Vera Miles',
-      //   movie: 'The Searchers',
-      //   department: 'Actor' },
-      // { name: 'John Ford',
-      //   movie: 'The Quiet Man',
-      //   department: 'Produced' },
-      // { name: 'Barry Fitzgerald',
-      //   movie: 'Going My Way',
-      //   department: 'Actor' },
-      // { name: 'Bing Crosby',
-      //   movie: 'High Society',
-      //   department: 'Actor' }],
       history: [],
       errors: {},
     }
@@ -60,6 +38,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.getSaved = this.getSaved.bind(this);
     this.saveResult = this.saveResult.bind(this);
+    this.getPath = this.getPath.bind(this);
   }
 
 
@@ -187,6 +166,11 @@ class App extends React.Component {
     })
   }
 
+  getPath(path) {
+    console.log('***FROM APP***\n', path);
+    this.setState({connectResults: path});
+  }
+
   getSaved() {
     fetch('/history/getHistory', {
       method: 'GET',
@@ -205,7 +189,6 @@ class App extends React.Component {
       credentials: 'include'
     }).then(res => res.json())
     .then(res => {
-      let signedIn = false;
       if (res && res.path_id !== null) {
         console.log('successfully added path!!!!!!!!!!!!!!!!!')
       }
@@ -224,7 +207,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} saveResult={this.saveResult} getSaved={this.getSaved} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} getPath={this.getPath} connectResults={this.state.connectResults} saveResult={this.saveResult} getSaved={this.getSaved} logOut={this.logOut}/>
     }
 
     return (
