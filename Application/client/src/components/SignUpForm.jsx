@@ -15,6 +15,16 @@ const SignUpForm = (props) => {
   
       <div className="field-line">
         <TextField
+          floatingLabelText="Username"
+          name="username"
+          onChange={props.onChange}
+          errorText={props.errors.username}
+          value={props.user.username}
+        />
+      </div>
+
+      <div className="field-line">
+        <TextField
           floatingLabelText="First Name"
           name="firstname"
           onChange={props.onChange}

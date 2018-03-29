@@ -66,10 +66,22 @@ authController.checkAuthenticated = (req, res, next) => {
     if (err) {
       return res.status(401).json({});
     }
-    // decoded token (using jwt secret);
+    // store user_id in res.locals
     res.locals.user_id = decoded;
     next();
   });
+}
+
+authController.getUserData = (req, res, next) => {
+  db.query(
+    sqlstring.format(
+      'SELECT firstname, lastname, username, user_id FROM user WHERE user_id = ?', [res.locals.user_id]
+    ),
+    (err, results, fields) => {
+      if (err) return res.status(500).send(err);
+      return res.send(results[0]);
+    }
+  );
 }
 
 authController.setJWTCookie = (req, res, next) => {

@@ -21,6 +21,7 @@ class App extends React.Component {
         user_id:'',
         username: '',
         password: '',
+        email: '',
         firstName: '',
         lastName: ''
       },
@@ -148,8 +149,14 @@ class App extends React.Component {
         signedIn = true;
       }
       let cookieChecked = true;
-      this.setState({signedIn, cookieChecked});
+      let user = { firstname: res.firstname, lastname: res.lastname, username: res.username, user_id: res.user_id};
+      this.setState({user, signedIn, cookieChecked});
     });
+  }
+
+  logOut() {
+    // set the state to not signed in
+    this.setState({signedIn: false});
   }
 
 
@@ -165,7 +172,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} logOut={this.logOut}/>
     }
 
     return (
@@ -196,8 +203,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log('signed in', this.props.signedIn);
-    console.log('cookie checked', this.props.cookieChecked);
     return (
       <div>
         {this.props.cookieChecked && this.props.signedIn && <Redirect to='/dashboard'/>}

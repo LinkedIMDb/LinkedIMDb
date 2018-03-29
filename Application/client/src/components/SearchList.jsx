@@ -93,11 +93,11 @@ const SearchList = (props) => {
       if (i !== 0) {
         list = 'who ' + list;  
       }
-     return <li className='list-item'>{list}</li>
+     return <li key={i} className='list-item'>{list}</li>
     
   })
 
-  searchItems.unshift(<li className='list-item'>{props.item[0].name}</li>);
+  searchItems.unshift(<li key={-1} className='list-item'>{props.item[0].name}</li>);
   
   return (
     <ul className='search-list'>
