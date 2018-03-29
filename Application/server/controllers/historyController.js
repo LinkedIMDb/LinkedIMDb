@@ -7,10 +7,12 @@ const historyController = {};
 historyController.getHistory = (req, res, next) => {
   db.query(
     sqlstring.format(
-      'SELECT * FROM history WHERE user_id = ?', [res.locals.user_id]
+      'SELECT path FROM history WHERE user_id = ?', [res.locals.user_id]
     ),
     (err, results, fields) => {
-      console.log(results);
+      results = results.map(RowDataPacket => {
+        return JSON.parse(RowDataPacket.path);
+      });
       if (err) return res.status(500).send(err);
       return res.send(results);
     }

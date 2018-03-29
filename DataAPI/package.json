@@ -4,11 +4,12 @@
   "description": "Networking tool for the film industry",
   "main": "index.js",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "mongoose": "^5.0.12",
-    "request": "^2.85.0",
     "body-parser": "^1.18.2",
-    "express": "^4.16.3"
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "nodemon": "^1.17.2",
+    "request": "^2.85.0"
   },
   "devDependencies": {},
   "scripts": {
