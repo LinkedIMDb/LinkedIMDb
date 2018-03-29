@@ -50,7 +50,6 @@ class Dashboard extends React.Component {
 
 
          <div id="nav-buttons">
-          <h1>Dashboard
             <Link to={'/'}>
               <RaisedButton label="Log Out"
                 primary style={style}
