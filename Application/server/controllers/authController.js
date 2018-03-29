@@ -91,7 +91,7 @@ authController.setJWTCookie = (req, res, next) => {
 }
 
 authController.logOut = (req, res, next) => {
-  // direct browser to remove cookie
+  // direct browser to remove JWT cookie (redirect will happen via React Router)
   res.cookie('access_token', null, { httpOnly: true, maxAge: 0 });
   res.sendStatus(200);
 }
