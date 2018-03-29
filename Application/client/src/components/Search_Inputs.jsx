@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const style = {
+  margin: 12,
+};
+
 class Search_Inputs extends React.Component {
   constructor(props) {
     super(props);
@@ -33,12 +37,12 @@ class Search_Inputs extends React.Component {
   render() {
     // console.log(this.state);
     return (
-      <div>
+      <div id="search-input-container" >
         <form action='#' onSubmit={this.handleSubmit}>
           <label>
             Name 1
               <input 
-                type="text" 
+                type="text"
                 id="searchTerm1" 
                 value={this.state.searchTerm1} 
                 name="searchTerm1" 
@@ -56,7 +60,7 @@ class Search_Inputs extends React.Component {
               />
           </label>
           <div className="button-line">
-            <RaisedButton type="submit" label="Make Connections" primary />
+            <RaisedButton type="submit" label="Make Connections" primary style={style}/>
           </div>
         </form>
       </div>

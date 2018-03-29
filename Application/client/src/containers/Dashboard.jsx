@@ -4,29 +4,28 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Search_Inputs from '../components/Search_Inputs.jsx';
 import SearchList from '../components/SearchList.jsx';
 
-const connectResults = [
-  {
-    name: 'James', 
-    department: 'Casting', 
-    movie: 'Ghostbusters'
-  },
-  { 
-    name: 'Max', 
-    department: 'Actor', 
-    movie: 'Black Panther'
-  },
-  { 
-    name: 'Chris', 
-    department: 'Actor', 
-    movie: 'The Blues'
-  },
-  { 
-    name: 'Annie', 
-    department: 'Actress', 
-    movie: 'The Mathemetician'
-  }
-
-]
+const connectResults = [ { name: 'David Ayer', movie: 'Bright', department: 'Produced' },
+{ name: 'Lindsay Graham',
+  movie: 'Bright',
+  department: 'Casting' },
+{ name: 'Walter Mirisch',
+  movie: 'The Magnificent Seven',
+  department: 'Produced' },
+{ name: 'Anthony Perkins',
+  movie: 'Friendly Persuasion',
+  department: 'Actor' },
+{ name: 'Vera Miles',
+  movie: 'The Searchers',
+  department: 'Actor' },
+{ name: 'John Ford',
+  movie: 'The Quiet Man',
+  department: 'Produced' },
+{ name: 'Barry Fitzgerald',
+  movie: 'Going My Way',
+  department: 'Actor' },
+{ name: 'Bing Crosby',
+  movie: 'High Society',
+  department: 'Actor' } ]
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -37,8 +36,9 @@ class Dashboard extends React.Component {
     return (
       <div id="dashboard-container">
         <h5>Hey {this.props.user.firstname}, Who do you want to connect with today?</h5>
-        <h1>Dashboard</h1>
-    
+        <div id='heading1'>
+           <h1>Dashboard</h1>
+        </div>
         <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname}/>
         <SearchList item={connectResults}/>
       </div>

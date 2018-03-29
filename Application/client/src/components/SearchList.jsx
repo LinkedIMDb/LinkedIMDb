@@ -102,7 +102,6 @@ const SearchList = (props) => {
   return (
     <ul className='search-list'>
       {searchItems}
-      <span style={arrowStyle}>&#8595;</span>
     </ul>
   )
 }
