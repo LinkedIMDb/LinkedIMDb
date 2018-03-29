@@ -5,7 +5,7 @@ const historyController = require('../controllers/historyController');
 router.get('/getHistory', );
 
 
-router.post('/save',
+router.post('/savePath',
   historyController.savePath,
   (req, res) => {
     res.status(200).json(res.locals);

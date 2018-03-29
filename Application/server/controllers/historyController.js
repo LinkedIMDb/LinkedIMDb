@@ -14,9 +14,11 @@ historyController.getHistory = (req, res, next) => {
 
 // save a user's new connection path
 historyController.savePath = (req, res, next) => {
+  // console.log(res.locals.user_id);
+  // console.log(req.body);
   db.query(
     sqlstring.format(
-      'INSERT INTO history (user_id, path) VALUES (?,?)', [res.locals.user_id, JSON.stringify(req.body.path)]),
+      'INSERT INTO history (user_id, path) VALUES (?,?)', [res.locals.user_id, JSON.stringify(req.body)]),
     (err, results, fields) => {
       if (err) return res.status(400).send(err);
       else {
