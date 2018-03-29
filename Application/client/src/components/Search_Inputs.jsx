@@ -20,8 +20,7 @@ class Search_Inputs extends React.Component {
   handleChange(event) {
     const target = event.target;
     console.log(target);
-    const value = target.type
-
+  
     this.setState( {
      [event.target.name]: event.target.value
     });

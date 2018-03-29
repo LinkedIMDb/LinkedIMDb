@@ -4,14 +4,10 @@ import React from 'react'
 class SearchResults extends React.Component {
   render() {
     
-    const matches = ['Jim', 'Sara', 'Max', 'Annie'];
-    const listItems = matches.map((match) => {
-      <li>{match}</li>
-    });  
 
     return (
      <div>
-        <ul>{listItems}</ul>
+      test
       </div>
     );
   }
@@ -19,3 +15,6 @@ class SearchResults extends React.Component {
 
 
 export default SearchResults
+
+// Database object returned
+// [ {name, department movie }]

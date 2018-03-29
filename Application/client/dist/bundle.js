@@ -39816,7 +39816,6 @@ var Search_Inputs = function (_React$Component) {
     value: function handleChange(event) {
       var target = event.target;
       console.log(target);
-      var value = target.type;
 
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
