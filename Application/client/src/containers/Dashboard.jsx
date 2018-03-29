@@ -5,8 +5,6 @@ import Search_Inputs from '../components/Search_Inputs.jsx';
 import SearchList from '../components/SearchList.jsx';
 import { Link } from 'react-router-dom';
 
-
-
 // const connectResults = [ { name: 'David Ayer', movie: 'Bright', department: 'Produced' },
 // { name: 'Lindsay Graham',
 //   movie: 'Bright',

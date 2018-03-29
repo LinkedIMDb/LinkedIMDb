@@ -13,17 +13,15 @@ class Search_Inputs extends React.Component {
     this.state = {
       searchTerm1: props.firstname ? props.firstname + ' ' + props.lastname : '',
       searchTerm2: '',
-      connectionResults: [],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
   }
 
   handleChange(event) {
     const target = event.target;
-    // console.log(target);
+    console.log(target);
   
     this.setState( {
      [event.target.name]: event.target.value
@@ -31,11 +29,22 @@ class Search_Inputs extends React.Component {
   }
   // Submit Search
   handleSubmit(event) {
-    event.preventDefault();  
+    event.preventDefault(); 
+
+    // Send fetch request with our two names
+    let startName = this.state.searchTerm1;
+    let endName = this.state.searchTerm2;
+
+    window
+      .fetch(`http://localhost:8000/connections/${startName}/${endName}`)
+        .then(res => res.json())
+        .then(path => {
+          // Set the connections Results with our response
+          console.log(path);
+        })
   }
 
   render() {
-    // console.log(this.state);
     return (
       <div id="search-input-container" >
         <form action='#' onSubmit={this.handleSubmit}>
