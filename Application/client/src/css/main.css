@@ -26,17 +26,29 @@ html {
   }
 }
 
+/* SignUp Styling */
 
-
+.container {
+  width: 386px;
+  margin: auto;
+  margin-bottom: 0px;
+  padding: 52px;
+}
 
 li {
   list-style-type: none;
 }
 
+/* .submit {
+  background-color: #5163BE;
+} */
+
 /* Dashboard Styling */
 
 #dashboard-container {
   background-color: white;
+  padding-bottom: 280px;
+  
 }
 
 #search-input-container {
