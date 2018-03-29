@@ -13,14 +13,22 @@ router.post('/signup',
   formValidator.checkExistingUsername,
   formValidator.validateSignupInput,
   authController.createUser,
-  (req, res) => res.send(200)
+  authController.setJWTCookie,
+  (req, res) => {
+    res.status(200).json({});
+  }
 );
 
 router.post('/login',
   formValidator.validateLoginInput,
-  // authController.checkAuthenticated, // only with jwt
   authController.verifyUser,
-  (req, res) => res.send(200)
+  authController.setJWTCookie,
+  (req, res) => res.status(200).json({})
 );
+
+router.get('/verify',
+  authController.checkAuthenticated,
+  (req, res) => res.status(200).json(res.locals)
+)
 
 module.exports = router;

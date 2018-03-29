@@ -8,8 +8,9 @@ formValidator.checkExistingUsername = (req, res, next) => {
     sqlstring.format('SELECT username FROM user WHERE username = ?', [req.body.username]), (err, results, fields) => {
       if (err) return res.status(400).send(err);
       if (results.length) {
-        let error= 'The username you provided has been taken. Please choose a new username.'
-        return res.status(400).json(error);
+        const errors = {};
+        errors.username = 'The username you provided has been taken. Please choose a new username.'
+        return res.status(400).json({errors});
       }
       return next();
     }

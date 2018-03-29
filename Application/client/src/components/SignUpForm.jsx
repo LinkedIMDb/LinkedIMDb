@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { BrowserRouter as Router, Route, Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -67,8 +67,6 @@ const SignUpForm = (props) => {
       <div className="button-line">
         <RaisedButton type="submit" label="Create New Account" primary />
       </div>
-
-      {/* <CardText>Already have an account? <Link to={'/login'}>Log in</Link></CardText> */}
     </form>
   </Card>
 )};
