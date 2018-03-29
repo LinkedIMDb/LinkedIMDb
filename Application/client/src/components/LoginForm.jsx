@@ -51,11 +51,11 @@ const LoginForm = ({
   </Card>
 );
 
-// LoginForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   onChange: PropTypes.func.isRequired,
-//   errors: PropTypes.object.isRequired,
-//   user: PropTypes.object.isRequired
-// };
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
 
 export default LoginForm;
