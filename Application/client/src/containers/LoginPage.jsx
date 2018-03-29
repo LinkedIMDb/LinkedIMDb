@@ -14,14 +14,14 @@ class LoginPage extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className="container">
         <LoginForm
           onSubmit={this.props.onSubmit}
           onChange={this.props.onChange}
           errors={this.props.errors}
           user={this.props.user}
         />
-        <Card>
+        <Card className="container">
           <CardText>Need to make an account? <Link to='/signup'>Sign Up</Link></CardText>
         </Card>
 
