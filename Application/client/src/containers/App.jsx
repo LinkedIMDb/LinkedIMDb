@@ -10,7 +10,6 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import Dashboard from './Dashboard.jsx';
 import Testing from '../components/Testing.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,13 +27,15 @@ class App extends React.Component {
       signedIn: false,
       cookieChecked: false,
       history: [],
-      errors: {}
+      errors: {},
     }
 
     this.changeUser = this.changeUser.bind(this);
     this.processSignupForm = this.processSignupForm.bind(this);
     this.processLoginForm = this.processLoginForm.bind(this);
     this.checkHomeRoute = this.checkHomeRoute.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.getSaved = this.getSaved.bind(this);
   }
 
 
@@ -156,10 +157,17 @@ class App extends React.Component {
 
   logOut() {
     // set the state to not signed in
-    this.setState({signedIn: false});
+    this.setState({signedIn: false, cookieChecked: false});
+    // call an endpoint that will remove your cookie and redirect you to root.
+    fetch('/logout', {
+      method: 'GET',
+      credentials: 'include'
+    })
   }
 
-
+  getSaved() {
+    
+  }
 
   render() {
     const HomeProps = () => {
@@ -172,7 +180,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} logOut={this.logOut}/>
     }
 
     return (

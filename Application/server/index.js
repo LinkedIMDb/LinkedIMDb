@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const path = require('path');
+const authController = require('./controllers/authController');
 
 // Connect to db
 const config = require('./config');
@@ -36,6 +37,9 @@ const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
+// Logout route
+app.get('/logout', authController.logOut);
 
 // Catch all other routes and redirect to root
 app.get('/*', (req,res) => res.redirect('/'));
