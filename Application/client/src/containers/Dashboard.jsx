@@ -42,6 +42,9 @@ class Dashboard extends React.Component {
       <div id="dashboard-container">
         <h5>Hey {this.props.user.firstname}, Who do you want to connect with today?</h5>
         <div id='heading1'>
+
+           <h1 id="brand-heading">LinkedIMDb</h1>
+
           <h1>Dashboard
             <RaisedButton label="Log Out"
               primary style={style}
@@ -52,6 +55,7 @@ class Dashboard extends React.Component {
               onClick={this.props.logOut}
             />
           </h1>
+
         </div>
         <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname}/>
         <SearchList item={connectResults}/>
