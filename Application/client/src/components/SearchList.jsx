@@ -88,7 +88,7 @@ const arrowStyle = {
 }
 
 const SearchList = (props) => {
-  const searchItems = props.item.slice(1).map((result, i, arr) => {
+  const searchItems = props.connectResults.item.slice(1).map((result, i, arr) => {
     let list = `worked on ${result.movie} with ${result.name} (${result.department})`;
       if (i !== 0) {
         list = 'who ' + list;  
@@ -97,7 +97,7 @@ const SearchList = (props) => {
     
   })
 
-  searchItems.unshift(<li key={-1} className='list-item'>{props.item[0].name}</li>);
+  searchItems.unshift(<li key={-1} className='list-item'>{props.connectResults.item[0].name}</li>);
   
   return (
     <ul className='search-list'>
