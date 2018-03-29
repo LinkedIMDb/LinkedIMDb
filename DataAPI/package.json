@@ -13,7 +13,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "nodemon server.js",
-    "scrape": "node server2.js"
+    "scrape": "node monolith.js"
   },
   "repository": {
     "type": "git",

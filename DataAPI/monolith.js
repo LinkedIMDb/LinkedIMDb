@@ -1,15 +1,14 @@
 var http = require('http');
 var https = require('https');
-http.globalAgent.maxSockets = 1;
-https.globalAgent.maxSockets = 1;
+http.globalAgent.maxSockets = 9999;
+https.globalAgent.maxSockets = 9999;
 const cheerio = require('cheerio');
 const request = require('request');
 
 // Connecting to DB
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost/user';
-const mLabURI = 'mongodb://superuser:supersecret@ds127899.mlab.com:27899/linkimdb'
-mongoose.connect(mLabURI);
+mongoose.connect(mongoURI);
 const User = require('./models/user');
 
 let first = 'John';
@@ -288,8 +287,8 @@ async function searchBFS(name1, name2) {
             queue.push(id);
             thisCache[id] = queue[i];
           }
-          rem += 1;
         };
+        rem += 1;
       });
     console.log('***AFTER AWAIT***');
   };
@@ -315,10 +314,15 @@ async function searchBFS(name1, name2) {
       id2 = cacheBack[id2];
     }
     arr1.push(id);
-    let path = arr1.concat(arr2);
-    console.log('***PATH***\n', path);
-    let arr = await getInfo(path);
-    console.log('***HAPPY***\n', arr);
+    arr2.reverse();
+
+    // console.log('***PATH***\n', path);
+    let path1 = await getInfo(arr1);
+    let path2 = await getInfo(arr2);
+    path2.reverse();
+
+    let path = path1.concat(path2);
+    console.log('***HAPPY***\n', path);
     console.log('PATH SHOWN');
   }
   else console.log('Not Found');
@@ -348,5 +352,5 @@ async function getInfo(arr) {
 }
 
 // dbSaveTest('John', 'Smith');
-imdbScraper('Kevin', 'Bacon');
-//console.log(searchBFS('Bing Crosby', 'Will Smith'));
+// imdbScraper('Will', 'Smith');
+console.log(searchBFS('David Ayer', 'Bing Crosby'));
