@@ -7,7 +7,7 @@ class Search_Inputs extends React.Component {
     super(props);
 
     this.state = {
-      searchTerm1: '',
+      searchTerm1: props.firstname ? props.firstname + ' ' + props.lastname : '',
       searchTerm2: '',
       connectionResults: [],
     };

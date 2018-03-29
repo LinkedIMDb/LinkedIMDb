@@ -6348,14 +6348,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import routes from './routes.js';
 var title = 'LinkedImdb';
 
-_reactDom2.default.render(
-// <BrowserRouter>
-_react2.default.createElement(_App2.default, null)
-// </BrowserRouter>
-, document.getElementById('app'));
-
-// module.hot.accept();
-// console.log('My Minimal React Webpack Babel Setup');
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
 
 /***/ }),
 /* 127 */
@@ -31968,7 +31961,6 @@ var App = function (_React$Component) {
             errors: {},
             signedIn: true
           });
-          // REDIRECT HERE
         } else {
           errors.summary = res.message;
           _this2.setState({ errors: errors });
@@ -32010,7 +32002,11 @@ var App = function (_React$Component) {
         if (!Object.keys(errors).length) {
           _this3.setState({
             errors: {},
-            signedIn: true
+            signedIn: true,
+            user: {
+              firstname: res.firstname,
+              lastname: res.lastname
+            }
           });
           console.log('Valid form.');
         } else {
@@ -32035,7 +32031,7 @@ var App = function (_React$Component) {
       }).then(function (res) {
         var signedIn = false;
         if (res && res.user_id) {
-          // signedIn = true;
+          signedIn = true;
         }
         var cookieChecked = true;
         _this4.setState({ signedIn: signedIn, cookieChecked: cookieChecked });
@@ -32047,7 +32043,6 @@ var App = function (_React$Component) {
       var _this5 = this;
 
       var HomeProps = function HomeProps() {
-        // this.props.checkHomeRoute();
         return _react2.default.createElement(Home, { user: _this5.state.user, signedIn: _this5.state.signedIn, cookieChecked: _this5.state.cookieChecked, history: _this5.state.history, checkHomeRoute: _this5.checkHomeRoute });
       };
       var SignUpProps = function SignUpProps() {
@@ -32090,39 +32085,18 @@ var Home = function (_React$Component2) {
     _classCallCheck(this, Home);
 
     return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-
-    // set the initial component state
-    // this.state = {
-    //   signedIn: false,
-    //   cookieChecked: false
-    // };
   }
 
   _createClass(Home, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.props.checkHomeRoute();
-
-      //   fetch('/auth/verify', {
-      //     method: 'GET',
-      //     headers: {
-      //       'Content-Type': 'application/json'
-      //     },
-      //     credentials: 'include'
-      //   }).then(res => res.json())
-      //   .then(res => {
-      //     let signedIn = false;
-      //     if (res && res.user_id) {
-      //       signedIn = true;
-      //     }
-      //     let cookieChecked = true;
-      //     this.setState({signedIn, cookieChecked});
-      //   });
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.signedIn);
+      console.log('signed in', this.props.signedIn);
+      console.log('cookie checked', this.props.cookieChecked);
       return _react2.default.createElement(
         'div',
         null,
@@ -32872,19 +32846,6 @@ var LoginPage = function (_React$Component) {
     _classCallCheck(this, LoginPage);
 
     return _possibleConstructorReturn(this, (LoginPage.__proto__ || Object.getPrototypeOf(LoginPage)).call(this, props));
-
-    // set the initial component state
-    // this.state = {
-    //   errors: {},
-    //   user: {
-    //     username: '',
-    //     password: ''
-    //   },
-    //   signedIn: false
-    // };
-
-    // this.processForm = this.processForm.bind(this);
-    // this.changeUser = this.changeUser.bind(this);
   }
 
   /**
@@ -39219,22 +39180,6 @@ var SignUpPage = function (_React$Component) {
     _classCallCheck(this, SignUpPage);
 
     return _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props));
-
-    // set the initial component state
-    // this.state = {
-    //   errors: {},
-    //   user: {
-    //     username: '',
-    //     email: '',
-    //     firstname: '',
-    //     lastname: '',
-    //     password: ''
-    //   },
-    //   signedIn: false
-    // };
-
-    // this.processForm = this.processForm.bind(this);
-    // this.changeUser = this.changeUser.bind(this);
   }
 
   /**
@@ -39363,35 +39308,9 @@ var Dashboard = function (_React$Component) {
     _classCallCheck(this, Dashboard);
 
     return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
-
-    // // set the initial component state
-    // this.state = {
-    //   user_id: '',
-    //   firstname : '',
-    //   lastname: ''
-    // }
   }
 
   _createClass(Dashboard, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      // fetch('/auth/verify', {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   credentials: 'include'
-      // }).then(res => res.json())
-      // .then(res => {
-      //   let signedIn = false;
-      //   if (res && res.user_id) {
-      //     signedIn = true;
-      //   }
-      //   let cookieChecked = true;
-      //   this.setState({firstname : res.firstname, lastname : res.lastname});
-      // });
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -39401,7 +39320,7 @@ var Dashboard = function (_React$Component) {
           'h5',
           null,
           'Hey ',
-          this.props.firstname,
+          this.props.user.firstname,
           ', Who do you want to connect with today?'
         ),
         _react2.default.createElement(
@@ -39409,7 +39328,7 @@ var Dashboard = function (_React$Component) {
           null,
           'Dashboard'
         ),
-        _react2.default.createElement(_Search_Inputs2.default, null)
+        _react2.default.createElement(_Search_Inputs2.default, { firstname: this.props.user.firstname, lastname: this.props.user.lastname })
       );
     }
   }]);
@@ -39461,7 +39380,7 @@ var Search_Inputs = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Search_Inputs.__proto__ || Object.getPrototypeOf(Search_Inputs)).call(this, props));
 
     _this.state = {
-      searchTerm1: '',
+      searchTerm1: props.firstname ? props.firstname + ' ' + props.lastname : '',
       searchTerm2: '',
       connectionResults: []
     };

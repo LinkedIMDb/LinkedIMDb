@@ -82,7 +82,6 @@ class App extends React.Component {
             errors: {},
             signedIn: true
           });
-          // REDIRECT HERE
         } else {
           errors.summary = res.message;
           this.setState({ errors });
@@ -120,8 +119,12 @@ class App extends React.Component {
         const errors = res.errors ? res.errors : {};
         if (!Object.keys(errors).length){
           this.setState({
-            errors: {},
-            signedIn: true
+            errors : {},
+            signedIn : true,
+            user : {
+              firstname : res.firstname,
+              lastname: res.lastname
+            }
           });
           console.log('Valid form.')
         } else {
@@ -142,7 +145,7 @@ class App extends React.Component {
     .then(res => {
       let signedIn = false;
       if (res && res.user_id) {
-        // signedIn = true;
+        signedIn = true;
       }
       let cookieChecked = true;
       this.setState({signedIn, cookieChecked});
@@ -153,7 +156,6 @@ class App extends React.Component {
 
   render() {
     const HomeProps = () => {
-      // this.props.checkHomeRoute();
       return <Home user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} checkHomeRoute={this.checkHomeRoute}/>
     }
     const SignUpProps = () => {
@@ -188,41 +190,18 @@ class Home extends React.Component {
   // call server to check if auth, if so redirect to dashboard
   constructor(props) {
     super(props);
-
-    // set the initial component state
-    // this.state = {
-    //   signedIn: false,
-    //   cookieChecked: false
-    // };
   }
   componentDidMount() {
     this.props.checkHomeRoute();
-
-  //   fetch('/auth/verify', {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     credentials: 'include'
-  //   }).then(res => res.json())
-  //   .then(res => {
-  //     let signedIn = false;
-  //     if (res && res.user_id) {
-  //       signedIn = true;
-  //     }
-  //     let cookieChecked = true;
-  //     this.setState({signedIn, cookieChecked});
-  //   });
   }
 
   render() {
-    console.log(this.props.signedIn);
+    console.log('signed in', this.props.signedIn);
+    console.log('cookie checked', this.props.cookieChecked);
     return (
       <div>
-      {/* {this.props.signedIn && <Redirect to='/dashboard'/>}
-      {!this.props.signedIn && <Redirect to='/login' /> } */}
-      {this.props.cookieChecked && this.props.signedIn && <Redirect to='/dashboard'/>}
-      {this.props.cookieChecked && !this.props.signedIn && <Redirect to='/login' /> }
+        {this.props.cookieChecked && this.props.signedIn && <Redirect to='/dashboard'/>}
+        {this.props.cookieChecked && !this.props.signedIn && <Redirect to='/login' /> }
       </div>
     )
   }
