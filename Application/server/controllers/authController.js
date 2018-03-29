@@ -86,8 +86,14 @@ authController.getUserData = (req, res, next) => {
 
 authController.setJWTCookie = (req, res, next) => {
   const cookieVal = res.locals.jwt;
-  res.cookie('access_token', res.locals.jwt, { httpOnly: true, maxAge: 10000 });
+  res.cookie('access_token', res.locals.jwt, { httpOnly: true, maxAge: 100000 });
   next();
+}
+
+authController.logOut = (req, res, next) => {
+  // direct browser to remove cookie
+  res.cookie('access_token', null, { httpOnly: true, maxAge: 0 });
+  res.sendStatus(200);
 }
 
 module.exports = authController;

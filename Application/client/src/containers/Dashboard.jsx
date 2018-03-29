@@ -3,6 +3,7 @@ import { Card, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Search_Inputs from '../components/Search_Inputs.jsx';
 import SearchList from '../components/SearchList.jsx';
+import { Link } from 'react-router-dom';
 
 const style = {
   margin: 12,
@@ -43,10 +44,12 @@ class Dashboard extends React.Component {
         <h5>Hey {this.props.user.firstname}, Who do you want to connect with today?</h5>
         <div id='heading1'>
           <h1>Dashboard
-            <RaisedButton label="Log Out"
-              primary style={style}
-              onClick={this.props.logOut}
-            />
+            <Link to={'/'}>
+              <RaisedButton label="Log Out"
+                primary style={style}
+                onClick={this.props.logOut}
+              />
+            </Link>
             <RaisedButton label="Saved"
               primary style={style}
               onClick={this.props.logOut}
