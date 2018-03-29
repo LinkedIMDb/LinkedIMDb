@@ -6,13 +6,8 @@ import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom
 import LoginPage from '../containers/LoginPage.jsx'
 import LoginForm from './LoginForm.jsx';
 import SignUpPage from '../containers/SignUpPage.jsx';
-<<<<<<< HEAD
 import SignUpForm from '../components/SignUpForm.jsx';
 import Dashboard from '../components/Dashboard.jsx';
-=======
-import SignUpForm from './SignUpForm.jsx';
-import Dashboard from './Dashboard.jsx';
->>>>>>> a67d0129be3a0173e342f794f31d7699be845686
 import Testing from './Testing.jsx';
 
 
@@ -64,20 +59,11 @@ class Home extends React.Component {
       {this.state.cookieChecked && this.state.signedIn && <Redirect to='/dashboard'/>}
 
 
-<<<<<<< HEAD
-    <div>
-         {/* <Header />  
-       
-        <Main /> */}
-        <Dashboard />
-    </div>
-=======
       {this.state.cookieChecked && !this.state.signedIn && <Redirect to='/login' /> }
       </div>
     )
   }
 }
->>>>>>> a67d0129be3a0173e342f794f31d7699be845686
 
 
 const Simple = () => (
