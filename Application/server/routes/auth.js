@@ -28,6 +28,7 @@ router.post('/login',
 
 router.get('/verify',
   authController.checkAuthenticated,
+  authController.getUserData,
   (req, res) => res.status(200).json(res.locals)
 )
 

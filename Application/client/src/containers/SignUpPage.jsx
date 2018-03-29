@@ -14,15 +14,15 @@ class SignUpPage extends React.Component {
    */
   render() {
     return (
-      <div>
+      <div className="container">
         <SignUpForm
           onSubmit={this.props.onSubmit}
           onChange={this.props.onChange}
           errors={this.props.errors}
           user={this.props.user}
         />
-        <Card>
-          <CardText>Already have an account? <Link to='/login'>Log in</Link></CardText>
+        <Card className="container">
+          <CardText className>Already have an account? <Link to='/login'>Log in</Link></CardText>
         </Card>
 
         {this.props.signedIn && <Redirect to='/dashboard' />}

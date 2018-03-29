@@ -15,32 +15,11 @@ const SignUpForm = (props) => {
   
       <div className="field-line">
         <TextField
-          floatingLabelText="Name"
+          floatingLabelText="Username"
           name="username"
+          onChange={props.onChange}
           errorText={props.errors.username}
-          onChange={props.onChange}
           value={props.user.username}
-        />
-      </div>
-
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Email"
-          name="email"
-          errorText={props.errors.email}
-          onChange={props.onChange}
-          value={props.user.email}
-        />
-      </div>
-
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          name="password"
-          onChange={props.onChange}
-          errorText={props.errors.password}
-          value={props.user.password}
         />
       </div>
 
@@ -64,8 +43,39 @@ const SignUpForm = (props) => {
         />
       </div>
 
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Email"
+          name="email"
+          errorText={props.errors.email}
+          onChange={props.onChange}
+          value={props.user.email}
+        />
+      </div>
+
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          name="password"
+          onChange={props.onChange}
+          errorText={props.errors.password}
+          value={props.user.password}
+        />
+      </div>
+      <div className="field-line">
+        <TextField
+          floatingLabelText="Confirm Password"
+          type="password"
+          name="password2"
+          onChange={props.onChange}
+          errorText={props.errors.password}
+          value={props.user.password2}
+        />
+      </div>
+
       <div className="button-line">
-        <RaisedButton type="submit" label="Create New Account" primary />
+        <RaisedButton type="submit" label="Create A New Account" primary />
       </div>
     </form>
   </Card>
