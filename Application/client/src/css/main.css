@@ -52,6 +52,58 @@ li {
   background-color: white;
   padding-bottom: 280px;
 }
+html {
+  margin: 0;;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+  body {
+    background-color: #5163BE;
+    font-size: 12px;
+  }
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  body {
+    background-color: #5163BE; 
+    font-size: 16px;
+  }
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+  body {
+    background-color: #5163BE; 
+    font-size: 18px;
+  }
+}
+
+/* SignUp Styling */
+
+.container {
+  width: 386px;
+  margin: auto;
+  margin-bottom: 0px;
+  padding: 52px;
+}
+
+li {
+  list-style-type: none;
+}
+
+
+
+/* Dashboard Styling */
+
+#dashboard-container {
+  background-color: white;
+  padding-bottom: 280px;
+}
 
 #brand-heading {
   font-size: 16px;
@@ -60,10 +112,52 @@ li {
 #search-input-container {
   position: relative;
   text-align: center;
+  left: 3px;
   top: 35px;
   bottom: 0px;
 }
 
+
+#heading1 {
+  background-color: #586CD1;
+  /* background-color: #586CD1; */
+  color: white;
+  font-size: 18px;
+  /* text-align: center; */
+  margin: 34px 18px;
+  padding: 38px;
+  border-radius: 7px;
+}
+
+h5 {
+    position: relative;
+    text-align: center;
+    top: 245px;
+    bottom: 0px;
+}
+
+#nav-buttons {
+  position: relative;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+
+}
+
+#brand-heading {
+  font-size: 16px;
+}
+.input-labels {
+  margin-left: 20px;
+}
+
+.list-item {
+  position: relative;
+  /* text-align: center; */
+  top: 35px;
+  bottom: 0px;
+}
 
 #heading1 {
   background-color: #586CD1;
@@ -83,9 +177,10 @@ h5 {
 }
 
 #nav-buttons {
- margin-top: 2px;
- margin-bottom: 2px;
- margin-left: 2px;
- margin-right: 2px;
+  position: relative;
+  top: -77px;
+  bottom: 2px;
+  left: 1014px;
+  right: 2px;
 
 }

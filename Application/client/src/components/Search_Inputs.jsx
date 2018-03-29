@@ -48,7 +48,7 @@ class Search_Inputs extends React.Component {
     return (
       <div id="search-input-container" >
         <form action='#' onSubmit={this.handleSubmit}>
-          <label>
+          <label class='input-labels'>
             Connect
               <input 
                 type="text"
@@ -58,7 +58,7 @@ class Search_Inputs extends React.Component {
                 onChange={this.handleChange}
               />
           </label>
-          <label>
+          <label class='input-labels'>
            to
               <input 
                 type="text" 
