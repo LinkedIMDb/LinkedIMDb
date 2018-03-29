@@ -1,0 +1,21 @@
+{
+  "name": "linkedimdb",
+  "version": "1.0.0",
+  "description": "Networking tool for the film industry",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "mongoose": "^5.0.12",
+    "request": "^2.85.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinkedIMDb/LinkedIMDb.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
