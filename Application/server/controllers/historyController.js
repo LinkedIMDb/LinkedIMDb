@@ -8,4 +8,4 @@ historyController.getHistory = (req, res, next) => {
 
 }
 
-module.exports = authController;
+module.exports = historyController;

@@ -62,8 +62,8 @@ class Dashboard extends React.Component {
           </div>
 
         </div>
-        <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname}/>
-        <SearchList item={this.props.connectResults}/>
+        <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname} getPath={this.props.getPath} />
+        {this.props.connectResults.length > 0 && <SearchList item={this.props.connectResults}/>}
         <RaisedButton label="Save This Result"
               primary style={style}
               onClick={this.props.saveResult}
