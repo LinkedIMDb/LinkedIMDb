@@ -5144,9 +5144,149 @@ var withRouter = function withRouter(Component) {
 
 /***/ }),
 /* 110 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-throw new Error("Module build failed: SyntaxError: Unexpected token (9:1)\n\n\u001b[0m \u001b[90m  7 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mLoginForm\u001b[39m from \u001b[32m'./LoginForm.jsx'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m  8 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mSignUpPage\u001b[39m from \u001b[32m'../containers/SignUpPage.jsx'\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  9 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 10 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mSignUpForm\u001b[39m from \u001b[32m'../components/SignUpForm.jsx'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 11 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mDashboard\u001b[39m from \u001b[32m'../components/Dashboard.jsx'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 12 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _getMuiTheme = __webpack_require__(48);
+
+var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+var _MuiThemeProvider = __webpack_require__(220);
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _reactRouterDom = __webpack_require__(64);
+
+var _LoginPage = __webpack_require__(294);
+
+var _LoginPage2 = _interopRequireDefault(_LoginPage);
+
+var _LoginForm = __webpack_require__(115);
+
+var _LoginForm2 = _interopRequireDefault(_LoginForm);
+
+var _SignUpPage = __webpack_require__(128);
+
+var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
+
+var _SignUpForm = __webpack_require__(129);
+
+var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
+
+var _Dashboard = __webpack_require__(293);
+
+var _Dashboard2 = _interopRequireDefault(_Dashboard);
+
+var _Testing = __webpack_require__(291);
+
+var _Testing2 = _interopRequireDefault(_Testing);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function App() {
+  return _react2.default.createElement(
+    _reactRouterDom.BrowserRouter,
+    null,
+    _react2.default.createElement(
+      _MuiThemeProvider2.default,
+      null,
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: Home }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _SignUpPage2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _LoginPage2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/dashboard', component: _Dashboard2.default })
+      )
+    )
+  );
+};
+
+var Home = function (_React$Component) {
+  _inherits(Home, _React$Component);
+
+  // call server to check if auth, if so redirect to dashboard
+  function Home(props) {
+    _classCallCheck(this, Home);
+
+    // set the initial component state
+    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+
+    _this.state = {
+      signedIn: false,
+      cookieChecked: false
+    };
+    return _this;
+  }
+
+  _createClass(Home, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      fetch('/auth/verify', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      }).then(function (res) {
+        return res.json();
+      }).then(function (res) {
+        var signedIn = false;
+        if (res && res.user_id) {
+          signedIn = true;
+        }
+        var cookieChecked = true;
+        _this2.setState({ signedIn: signedIn, cookieChecked: cookieChecked });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        this.state.cookieChecked && this.state.signedIn && _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' }),
+        this.state.cookieChecked && !this.state.signedIn && _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' })
+      );
+    }
+  }]);
+
+  return Home;
+}(_react2.default.Component);
+
+var Simple = function Simple() {
+  return _react2.default.createElement(
+    _reactRouterDom.Link,
+    { to: '/dashboard' },
+    'ALINK'
+  );
+};
+
+exports.default = App;
 
 /***/ }),
 /* 111 */
@@ -32140,7 +32280,83 @@ var createMemoryHistory = function createMemoryHistory() {
 
 
 /***/ }),
-/* 220 */,
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getPrototypeOf = __webpack_require__(5);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(3);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(6);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(7);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(8);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(0);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _getMuiTheme = __webpack_require__(48);
+
+var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MuiThemeProvider = function (_Component) {
+  (0, _inherits3.default)(MuiThemeProvider, _Component);
+
+  function MuiThemeProvider() {
+    (0, _classCallCheck3.default)(this, MuiThemeProvider);
+    return (0, _possibleConstructorReturn3.default)(this, (MuiThemeProvider.__proto__ || (0, _getPrototypeOf2.default)(MuiThemeProvider)).apply(this, arguments));
+  }
+
+  (0, _createClass3.default)(MuiThemeProvider, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      return {
+        muiTheme: this.props.muiTheme || (0, _getMuiTheme2.default)()
+      };
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return this.props.children;
+    }
+  }]);
+  return MuiThemeProvider;
+}(_react.Component);
+
+MuiThemeProvider.childContextTypes = {
+  muiTheme: _propTypes2.default.object.isRequired
+};
+MuiThemeProvider.propTypes = process.env.NODE_ENV !== "production" ? {
+  children: _propTypes2.default.element,
+  muiTheme: _propTypes2.default.object
+} : {};
+exports.default = MuiThemeProvider;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
 /* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38906,7 +39122,51 @@ exports.default = TextFieldUnderline;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 291 */,
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Testing = function Testing() {
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'ul',
+      null,
+      _react2.default.createElement(
+        'li',
+        null,
+        '6/5 @ Evergreens'
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        '6/8 vs Kickers'
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        '6/14 @ United'
+      )
+    )
+  );
+};
+
+exports.default = Testing;
+
+/***/ }),
 /* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38977,7 +39237,29 @@ var _Search_Inputs = __webpack_require__(754);
 
 var _Search_Inputs2 = _interopRequireDefault(_Search_Inputs);
 
+var _SearchList = __webpack_require__(811);
+
+var _SearchList2 = _interopRequireDefault(_SearchList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var connectResults = [{
+  name: 'James',
+  department: 'Casting',
+  movie: 'Ghostbusters'
+}, {
+  name: 'Max',
+  department: 'Actor',
+  movie: 'Black Panther'
+}, {
+  name: 'Chris',
+  department: 'Actor',
+  movie: 'The Blues'
+}, {
+  name: 'Annie',
+  department: 'Actress',
+  movie: 'The Mathemetician'
+}];
 
 var Dashboard = function Dashboard(props) {
   return _react2.default.createElement(
@@ -38993,7 +39275,8 @@ var Dashboard = function Dashboard(props) {
       null,
       'Dashboard'
     ),
-    _react2.default.createElement(_Search_Inputs2.default, null)
+    _react2.default.createElement(_Search_Inputs2.default, null),
+    _react2.default.createElement(_SearchList2.default, { item: connectResults })
   );
 };
 
@@ -69768,6 +70051,123 @@ CardActions.propTypes = process.env.NODE_ENV !== "production" ? {
 } : {};
 exports.default = CardActions;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 811 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// const connectResults = [
+//   {
+//     name: 'James', 
+//     department: 'Casting', 
+//     movie: 'Ghostbusters'
+//   },
+//   { 
+//     name: 'Max', 
+//     department: 'Actor', 
+//     movie: 'Black Panther'
+//   },
+//   { 
+//     name: 'Chris', 
+//     department: 'Actor', 
+//     movie: 'The Blues'
+//   },
+//   { 
+//     name: 'Annie', 
+//     department: 'Actress', 
+//     movie: 'The Mathemetician'
+//   }
+
+// ]
+
+// // iterate through array of objects
+// // list items one by one
+
+// // add div
+// // paragrah tag
+// // add name
+// // span tag
+// // add arrow
+// // (add movie of second item in list)
+// // span arrow
+
+
+// // const arrowStyle = {
+// //   color: "#1E334E",
+// //   fontSize: 80,
+// // }
+
+// // const listResults = (connectResults) => {
+// //   for(let i = 0; i < connectResults.length; i++) {
+// //     <div class='search-results'>
+// //       <p class='search-user-results'>{users[i].name}</p>
+// //       <span style={arrowStyle}>&#8595;</span>
+// //       <p class='search-movie-results'>{users[i + 1].movie}</p>
+// //       <span style={arrowStyle}>&#8595;</span> 
+// //     </div>
+// //     console.log(connectResults[i]);
+// //   }
+// // }
+
+// // function listResults(connectResults) {
+// //   const listItems = connectResults.map((user) => {
+// //     console.log(list_jsx(user))
+// //   })
+
+// // }
+
+
+// // clas list_jsx = (user) => {
+// //    <div class='search-results'>
+// //       <p class='search-user-results'>{user.name}</p>
+// //       <span style={arrowStyle}>&#8595;</span>
+// //       <p class='search-movie-results'>{user.movie}</p>
+// //       <span style={arrowStyle}>&#8595;</span> 
+// //     </div>
+// //     // console.log(user);
+// // }
+
+// const SearchListItem = (props) => {
+//   return (
+//     <div className='list-item'>
+//       <li>
+//         <p>Star worked on Black Panther with Max</p>
+//         <p>who worked with Annie on Forest Gump with Chris</p>
+//       </li>
+//     </div>
+//   )
+// }
+
+var SearchList = function SearchList(props) {
+  console.log(props.item);
+  var searchItems = props.item.map(function (result) {
+    return;
+  });
+
+  return _react2.default.createElement(
+    'ul',
+    { className: 'search-list' },
+    searchItems
+  );
+};
+
+exports.default = SearchList;
+
+// Database object returned
+// [ {name, department, movie }]
 
 /***/ })
 /******/ ]);
