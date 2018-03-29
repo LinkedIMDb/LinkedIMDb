@@ -193,12 +193,24 @@ class App extends React.Component {
       credentials: 'include'
     }).then(res => res.json())
     .then(res => {
-      this.setState({ connectResults: [{name:'', movie: '', department:''}], history: res })
+      this.setState({ connectResults: [], history: res })
     })
   }
 
-  saveResult() {
-    
+  saveResult(newPath) {
+    fetch('/history/savePath', {
+      method: 'POST',
+      body: JSON.stringify(newPath),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      let signedIn = false;
+      if (res && res.path_id !== null) {
+        console.log('successfully added path!!!!!!!!!!!!!!!!!')
+      }
+      this.setState({});
+    });
   }
 
   render() {
