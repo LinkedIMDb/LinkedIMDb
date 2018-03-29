@@ -19,7 +19,7 @@ class Search_Inputs extends React.Component {
 
   handleChange(event) {
     const target = event.target;
-    console.log(target);
+    // console.log(target);
   
     this.setState( {
      [event.target.name]: event.target.value
@@ -31,7 +31,7 @@ class Search_Inputs extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         <form action='#' onSubmit={this.handleSubmit}>

@@ -7,7 +7,7 @@ import LoginPage from '../containers/LoginPage.jsx'
 import LoginForm from './LoginForm.jsx';
 import SignUpPage from '../containers/SignUpPage.jsx';
 import SignUpForm from '../components/SignUpForm.jsx';
-import Dashboard from '../components/Dashboard.jsx';
+import Dashboard from '../containers/Dashboard.jsx';
 import Testing from './Testing.jsx';
 
 
