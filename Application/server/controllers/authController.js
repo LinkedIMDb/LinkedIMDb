@@ -36,6 +36,7 @@ authController.verifyUser = (req, res, next) => {
     (err, results, fields) => {
       // Results is an array of "RowDataPacket"s
       if (err) return res.status(500).send(err);
+      if (!results) return res.status(400).send({errors: 'Invalid credentials'})
       if (results.length) {
         // Compare the provided password with the hashed password
         if (bcrypt.compareSync(req.body.password, results[0].password)) {
@@ -47,7 +48,7 @@ authController.verifyUser = (req, res, next) => {
           return next();
         }
       }
-      return res.status(400).send('Invalid credentials');
+      return res.status(400).send({errors: 'Invalid credentials'});
     }
   );
 }
