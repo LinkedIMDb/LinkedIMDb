@@ -45,15 +45,15 @@ class Dashboard extends React.Component {
 
         </div>
         <Search_Inputs firstname={this.props.user.firstname} lastname={this.props.user.lastname} getPath={this.props.getPath} />
-        {this.props.connectResults.length > 0 && <SearchList item={this.props.connectResults}/>}     
-        {this.props.connectResults && this.props.connectResults.length && <RaisedButton label="Saved This Path"
+        {this.props.connectResults.length > 0 && <SearchList item={this.props.connectResults}/>}
+        {!this.props.pathSaved && this.props.connectResults.length > 0 && <RaisedButton label="Saved This Path"
           primary style={style}
           onClick={() => {
             // console.log('there is stuff here', this.props.connectResults);
             return this.props.saveResult(this.props.connectResults);
           }}
         />}
-        
+
         {this.props.history.length > 0 && showHistory}
       </div>
     )

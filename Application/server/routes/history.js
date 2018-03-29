@@ -6,6 +6,7 @@ router.get('/getHistory', historyController.getHistory);
 
 
 router.post('/savePath',
+  historyController.checkForPath,
   historyController.savePath,
   (req, res) => {
     res.status(200).json(res.locals);

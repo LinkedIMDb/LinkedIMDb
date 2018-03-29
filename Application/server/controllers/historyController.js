@@ -39,4 +39,20 @@ historyController.savePath = (req, res, next) => {
   );
 }
 
+historyController.checkForPath = (req, res, next) => {
+  // console.log(res.locals.user_id);
+  // console.log(req.body);
+  db.query(
+    sqlstring.format(
+    'SELECT path_id FROM history WHERE path = ? AND user_id = ?', [JSON.stringify(req.body), res.locals.user_id]),
+    (err, results, fields) => {
+      if (err) return res.status(400).send(err);
+      else {
+        if (results.length) {return res.status(400).json({error: 'path already in db'})}
+        return next();
+      }
+    }
+  );
+}
+
 module.exports = historyController;
