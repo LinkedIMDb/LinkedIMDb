@@ -28,7 +28,7 @@ app.use(cookieParser());
 // passport.use('logal-signup', localSignupStrategy);
 // passport.use('local-login', localLoginStrategy);
 
-// Check for authentication before any api call
+// Check for authentication before any api or history call and store user_id in res.locals.user_id
 const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
 app.use('/api', authCheckMiddleware);
 app.use('/history', authCheckMiddleware);

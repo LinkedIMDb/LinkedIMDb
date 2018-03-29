@@ -26,25 +26,7 @@ class App extends React.Component {
       },
       signedIn: false,
       cookieChecked: false,
-      connectResults: [{ name: 'David Ayer', movie: 'Bright', department: 'Produced' },
-      { name: 'Lindsay Graham',
-        movie: 'Bright',
-        department: 'Casting' },
-      { name: 'Walter Mirisch',
-        movie: 'The Magnificent Seven',
-        department: 'Produced' },
-      { name: 'Anthony Perkins',
-        movie: 'Friendly Persuasion',
-        department: 'Actor' },
-      { name: 'Vera Miles',
-        movie: 'The Searchers',
-        department: 'Actor' },
-      { name: 'John Ford',
-        movie: 'The Quiet Man',
-        department: 'Produced' },
-      { name: 'Barry Fitzgerald',
-        movie: 'Going My Way',
-        department: 'Actor' }],
+      connectResults: [],
       history: [],
       pathSaved: false,
       errors: {},
@@ -57,6 +39,7 @@ class App extends React.Component {
     this.logOut = this.logOut.bind(this);
     this.getSaved = this.getSaved.bind(this);
     this.saveResult = this.saveResult.bind(this);
+    this.getPath = this.getPath.bind(this);
   }
 
 
@@ -177,8 +160,6 @@ class App extends React.Component {
   }
 
   logOut() {
-    // set the state to not signed in
-    this.setState({signedIn: false, cookieChecked: false});
     // call an endpoint that will remove your cookie and redirect you to root.
     fetch('/logout', {
       method: 'GET',
@@ -186,8 +167,19 @@ class App extends React.Component {
     })
   }
 
-  getSaved() {
+  getPath(path) {
+    console.log('***FROM APP***\n', path);
+    this.setState({connectResults: path});
+  }
 
+  getSaved() {
+    fetch('/history/getHistory', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      this.setState({ connectResults: [], history: res })
+    })
   }
 
   saveResult(newPath) {
@@ -220,7 +212,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} connectResults={this.state.connectResults} saveResult={this.saveResult} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} getPath={this.getPath} connectResults={this.state.connectResults} saveResult={this.saveResult} logOut={this.logOut}/>
     }
 
     return (
