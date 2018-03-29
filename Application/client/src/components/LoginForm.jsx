@@ -7,25 +7,20 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 
-const LoginForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  user
-}) => (
+const LoginForm = (props) => (
   <Card className="container">
-    <form action="/" onSubmit={onSubmit}>
+    <form action="/" onSubmit={props.onSubmit}>
       <h2 className="card-heading">Login</h2>
 
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {props.errors.summary && <p className="error-message">{props.errors.summary}</p>}
 
       <div className="field-line">
         <TextField
           floatingLabelText="Username"
           name="username"
-          errorText={errors.username}
-          onChange={onChange}
-          value={user.username}
+          errorText={props.errors.username}
+          onChange={props.onChange}
+          value={props.user.username}
         />
       </div>
 
@@ -34,17 +29,15 @@ const LoginForm = ({
           floatingLabelText="Password"
           type="password"
           name="password"
-          onChange={onChange}
-          errorText={errors.password}
-          value={user.password}
+          onChange={props.onChange}
+          errorText={props.errors.password}
+          value={props.user.password}
         />
       </div>
 
       <div className="button-line">
         <RaisedButton type="submit" label="Log in" primary />
       </div>
-
-      {/* <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText> */}
     </form>
 
   
