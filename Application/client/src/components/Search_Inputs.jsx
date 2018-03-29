@@ -40,7 +40,7 @@ class Search_Inputs extends React.Component {
       <div id="search-input-container" >
         <form action='#' onSubmit={this.handleSubmit}>
           <label>
-            Name 1
+            Connect
               <input 
                 type="text"
                 id="searchTerm1" 
@@ -50,7 +50,7 @@ class Search_Inputs extends React.Component {
               />
           </label>
           <label>
-            Name 2
+           to
               <input 
                 type="text" 
                 id="searchTerm2" 

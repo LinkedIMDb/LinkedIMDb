@@ -26,6 +26,28 @@ class App extends React.Component {
       },
       signedIn: false,
       cookieChecked: false,
+      connectResults: [{ name: 'David Ayer', movie: 'Bright', department: 'Produced' },
+      { name: 'Lindsay Graham',
+        movie: 'Bright',
+        department: 'Casting' },
+      { name: 'Walter Mirisch',
+        movie: 'The Magnificent Seven',
+        department: 'Produced' },
+      { name: 'Anthony Perkins',
+        movie: 'Friendly Persuasion',
+        department: 'Actor' },
+      { name: 'Vera Miles',
+        movie: 'The Searchers',
+        department: 'Actor' },
+      { name: 'John Ford',
+        movie: 'The Quiet Man',
+        department: 'Produced' },
+      { name: 'Barry Fitzgerald',
+        movie: 'Going My Way',
+        department: 'Actor' },
+      { name: 'Bing Crosby',
+        movie: 'High Society',
+        department: 'Actor' }],
       history: [],
       errors: {},
     }
@@ -36,6 +58,7 @@ class App extends React.Component {
     this.checkHomeRoute = this.checkHomeRoute.bind(this);
     this.logOut = this.logOut.bind(this);
     this.getSaved = this.getSaved.bind(this);
+    this.saveResult = this.saveResult.bind(this);
   }
 
 
@@ -169,6 +192,10 @@ class App extends React.Component {
     
   }
 
+  saveResult() {
+    
+  }
+
   render() {
     const HomeProps = () => {
       return <Home user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} checkHomeRoute={this.checkHomeRoute}/>
@@ -180,7 +207,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} saveResult={this.saveResult} logOut={this.logOut}/>
     }
 
     return (

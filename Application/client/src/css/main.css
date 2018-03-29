@@ -8,21 +8,24 @@ html {
 /* Mobile Styles */
 @media only screen and (max-width: 400px) {
   body {
-    background-color: #5163BE; /* Red */
+    background-color: #5163BE;
+    font-size: 12px;
   }
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 401px) and (max-width: 960px) {
   body {
-    background-color: #5163BE; /* Yellow */
+    background-color: #5163BE; 
+    font-size: 16px;
   }
 }
 
 /* Desktop Styles */
 @media only screen and (min-width: 961px) {
   body {
-    background-color: #5163BE; /* Blue */
+    background-color: #5163BE; 
+    font-size: 18px;
   }
 }
 
@@ -48,14 +51,19 @@ li {
 #dashboard-container {
   background-color: white;
   padding-bottom: 280px;
-  
+}
+
+#brand-heading {
+  font-size: 16px;
 }
 
 #search-input-container {
   position: relative;
   text-align: center;
-
+  top: 35px;
+  bottom: 0px;
 }
+
 
 #heading1 {
   background-color: #586CD1;
@@ -65,5 +73,19 @@ li {
   margin: 34px 18px;
   padding: 38px;
   border-radius: 7px;
+}
+
+h5 {
+    position: relative;
+    text-align: center;
+    top: 245px;
+    bottom: 0px;
+}
+
+#nav-buttons {
+ margin-top: 2px;
+ margin-bottom: 2px;
+ margin-left: 2px;
+ margin-right: 2px;
 
 }

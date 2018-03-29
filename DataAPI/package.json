@@ -6,11 +6,14 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "mongoose": "^5.0.12",
-    "request": "^2.85.0"
+    "request": "^2.85.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "scrape": "node monolith.js"
   },
   "repository": {
     "type": "git",
