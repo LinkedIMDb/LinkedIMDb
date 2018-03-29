@@ -44,11 +44,9 @@ class App extends React.Component {
         department: 'Produced' },
       { name: 'Barry Fitzgerald',
         movie: 'Going My Way',
-        department: 'Actor' },
-      { name: 'Bing Crosby',
-        movie: 'High Society',
         department: 'Actor' }],
       history: [],
+      pathSaved: false,
       errors: {},
     }
 
@@ -200,11 +198,14 @@ class App extends React.Component {
       credentials: 'include'
     }).then(res => res.json())
     .then(res => {
-      let signedIn = false;
-      if (res && res.path_id !== null) {
-        console.log('successfully added path!!!!!!!!!!!!!!!!!')
+      if (res && res.path_id !== undefined) {
+        console.log('path successfully added');
+      } else if (res && res.error !== undefined) {
+        console.log(res.error);
       }
-      this.setState({});
+      this.setState({
+        pathSaved: true,
+      });
     });
   }
 
@@ -219,7 +220,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} saveResult={this.saveResult} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} connectResults={this.state.connectResults} saveResult={this.saveResult} logOut={this.logOut}/>
     }
 
     return (
