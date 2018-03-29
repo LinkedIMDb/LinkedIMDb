@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const path = require('path');
 
@@ -15,6 +16,7 @@ app.use(express.static(path.join(__dirname, '../client/')));
 // Parse HTTP body messages
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Initialize and use passport middleware
 // app.use(passport.initialize());
@@ -26,8 +28,8 @@ app.use(bodyParser.json());
 // passport.use('local-login', localLoginStrategy);
 
 // Check for authentication before any api call
-// const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
-// app.use('/api', authCheckMiddleware);
+const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
+app.use('/api', authCheckMiddleware);
 
 // Routes for authentication and api
 const authRoutes = require('./routes/auth');
@@ -35,6 +37,8 @@ const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
+// Catch all other routes and redirect to root
+app.get('/*', (req,res) => res.redirect('/'));
 
 // Start the server
 app.listen(3000, () => {

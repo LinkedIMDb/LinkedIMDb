@@ -21,11 +21,11 @@ const LoginForm = ({
 
       <div className="field-line">
         <TextField
-          floatingLabelText="Email"
-          name="email"
-          errorText={errors.email}
+          floatingLabelText="Username"
+          name="username"
+          errorText={errors.username}
           onChange={onChange}
-          value={user.email}
+          value={user.username}
         />
       </div>
 
@@ -44,7 +44,7 @@ const LoginForm = ({
         <RaisedButton type="submit" label="Log in" primary />
       </div>
 
-      <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+      {/* <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText> */}
     </form>
 
   
