@@ -1,7 +1,7 @@
 var http = require('http');
 var https = require('https');
-http.globalAgent.maxSockets = 1;
-https.globalAgent.maxSockets = 1;
+http.globalAgent.maxSockets = 9999;
+https.globalAgent.maxSockets = 9999;
 const cheerio = require('cheerio');
 const request = require('request');
 
@@ -14,13 +14,13 @@ const User = require('./models/user');
 let first = 'John';
 let last = 'Smith';
 let nameId;
-let layers = 10;
+let layers = 4;
 
 function saveToDb(arr) {
   arr.forEach(obj => {
     for (let _id in obj) {
       User.findOne({_id: _id}, (err, user) => {
-        if (err) return console.log(err);
+        if (err) return console.log('***ERROR IN SAVE***', err);
         if (user === null) {
           // Create new user and save
           let user = new User({
@@ -34,9 +34,12 @@ function saveToDb(arr) {
           });
         } else {
           // Update document and save
-          user.connections = Object.assign(user.connections, obj);
+          console.log('***USER CONNECTIONS PRE***\n', user.connections);
+          let newConnections = Object.assign({}, user.connections, obj);
+          user.connections = newConnections;
+          console.log('***USER CONNECTIONS POST***\n', user.connections);
           user.save((err, user) => {
-            if (err) return console.log(err);
+            if (err) return console.log('***ERROR IN UPDATE***', err);
             return;
           });
         };
@@ -145,29 +148,29 @@ async function imdbScraper(first, last) {
   res5 = await Promise.all(round2);
   saveToDb(res5);  
   
-  let allIdsBig = [];
-  let masterPromisesBig = [];
-  res5.forEach(obj => {
-    let ids = Object.keys(obj);
-    allIdsBig = allIdsBig.concat(ids);
-  });
-  allIdsBig.forEach(id => {
-    masterPromisesBig.push(request2(id));
-  });
+  // let allIdsBig = [];
+  // let masterPromisesBig = [];
+  // res5.forEach(obj => {
+  //   let ids = Object.keys(obj);
+  //   allIdsBig = allIdsBig.concat(ids);
+  // });
+  // allIdsBig.forEach(id => {
+  //   masterPromisesBig.push(request2(id));
+  // });
 
-  let res6 = await Promise.all(masterPromisesBig);
-  console.log('***res6***\n');
-  let mergedBig = [].concat.apply([], res6);
-  let round3 = [];
-  mergedBig.forEach(movieId => {
-    round3.push(request3(movieId));
-  });
-  console.log('***RIGHT BEFORE ROUND 3***');
-  res7 = await Promise.all(round3);
-  await saveToDb(res7);
+  // let res6 = await Promise.all(masterPromisesBig);
+  // console.log('***res6***\n');
+  // let mergedBig = [].concat.apply([], res6);
+  // let round3 = [];
+  // mergedBig.forEach(movieId => {
+  //   round3.push(request3(movieId));
+  // });
+  // console.log('***RIGHT BEFORE ROUND 3***');
+  // res7 = await Promise.all(round3);
+  // await saveToDb(res7);
 
   let count = 0;
-  res7.forEach((obj, i) => {
+  res5.forEach((obj, i) => {
     console.log('================');
     console.log('***INDEX***', i);
     count += Object.keys(obj).length;
@@ -203,7 +206,9 @@ async function dbSaveTest(first, last) {
           });
         } else {
           // Update document and save
+          console.log('***USER CONNECTIONS PRE***\n', user.connections);
           user.connections = Object.assign(user.connections, obj);
+          console.log('***USER CONNECTIONS POST***\n', user.connections);          
           user.save((err, user) => {
             if (err) return console.log(err);
             return console.log('***Successful Update***\n', user);
@@ -218,10 +223,9 @@ async function searchBFS(name1, name2) {
   let i;  
   let j = 0;
   let k = 0;
-
   let rem = 2;
-
   let found = false;
+
   let queue;
   let thisCache;
   let otherCache;
@@ -237,19 +241,18 @@ async function searchBFS(name1, name2) {
 
   console.log(name1Arr);
   console.log(name2Arr);
+
   let nameId1 = await request1(name1Arr[0], name1Arr[1]);
   let nameId2 = await request1(name2Arr[0], name2Arr[1]);
-  console.log('***IN HERE***');
 
+  console.log('***IN HERE***');
+  console.log(nameId1);
   queueFront.push(nameId1._id);
   queueBack.push(nameId2._id);
 
-  cacheFront[nameId1] = true;
-  cacheBack[nameId2] = true;
+  cacheFront[nameId1._id] = true;
+  cacheBack[nameId2._id] = true;
 
-  // Get user document of name1 and iterate through each connection
-  // If the connection is name2, then return the path from name1 to name2
-  // Else iterate through the connections of connections
   console.log('***BEGIN LOOP***');
   while (found === false && (j <= queueFront.length - 1 && k <= queueBack.length -1)) {
     console.log('***IN WHILE LOOP***');
@@ -267,26 +270,82 @@ async function searchBFS(name1, name2) {
       i = k;
       k += 1;
     }
-    console.log('***Queue***\n', queue[i]);
-    await User.findOne({_id: queue[i]}, (err, user) => {
-      for (let id in user.connections) {
-        if (otherCache.hasOwnProperty(id)) {
-          found = true;
-          break;
-        }
-        if (!thisCache.hasOwnProperty(id)) {
-          queue.push(id);
-          thisCache[id] = queue[i];
-        }
-        rem += 1;
-      };
-    });
+    console.log('***ID TO SEARCH***\n', queue[i]);
+    console.log('***BEFORE AWAIT***');
+    await User.findOne({_id: queue[i]})
+      .then((user) => {
+        console.log('***INSIDE AWAIT***');
+        console.log()
+        // if (err) console.log('***INSIDE ERROR***\n')
+        for (let id in user.connections) {
+          if (otherCache.hasOwnProperty(id)) {
+            found = true;
+            otherCache[queue[i]] = id;
+            break;
+          }
+          if (!thisCache.hasOwnProperty(id)) {
+            queue.push(id);
+            thisCache[id] = queue[i];
+          }
+          rem += 1;
+        };
+      });
+    console.log('***AFTER AWAIT***');
   };
   console.log('***END LOOP***');
-  if (found === true) console.log('Found');
+  if (found === true) {
+    let id = queue[i];
+    let id1 = queue[i];
+    let id2 = queue[i];    
+    let arr1 = [];
+    let arr2 = [];
+    console.log('Found');
+    console.log(cacheBack);
+
+    while (cacheFront[id1] !== true) {
+      console.log('***FRONT CACHE***')
+      arr1.push(cacheFront[id1]);
+      id1 = cacheFront[id1];
+    }
+    arr1.reverse();
+    while (cacheBack[id2] !== true) {
+      console.log('***BACK CACHE***')      
+      arr2.push(cacheBack[id2]);
+      id2 = cacheBack[id2];
+    }
+    arr1.push(id);
+    let path = arr1.concat(arr2);
+    console.log('***PATH***\n', path);
+    let arr = await getInfo(path);
+    console.log('***HAPPY***\n', arr);
+    console.log('PATH SHOWN');
+  }
   else console.log('Not Found');
 }
 
+async function getInfo(arr) {
+  let results = [];
+  arr.unshift(arr[0]);
+  await User.findOne({_id: arr[0]})
+  for (let i = 0; i < arr.length - 1; i += 1) {
+    console.log('***FOR LOOP GOING***');
+    console.log(arr[i + 1]);
+    await User.findOne({_id: arr[i]})
+      .then((user) => {
+        console.log('***IN FINDONE***')
+        results.push({
+          name: user.connections[arr[i + 1]].name,
+          movie: user.connections[arr[i + 1]].movie,
+          department: user.connections[arr[i + 1]].department
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+  return results;
+}
+
 // dbSaveTest('John', 'Smith');
-imdbScraper('John', 'Smith');
-// console.log(searchBFS('Lloyd Nolan', 'Henry Hathaway'));
+// imdbScraper('Will', 'Smith');
+console.log(searchBFS('Bing Crosby', 'Will Smith'));

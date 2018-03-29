@@ -7,22 +7,7 @@ import { Card, CardText } from 'material-ui/Card';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-
-    // set the initial component state
-    // this.state = {
-    //   errors: {},
-    //   user: {
-    //     username: '',
-    //     password: ''
-    //   },
-    //   signedIn: false
-    // };
-
-    // this.processForm = this.processForm.bind(this);
-    // this.changeUser = this.changeUser.bind(this);
   }
-
-
 
   /**
    * Render the component.

@@ -11,11 +11,5 @@ import App from './containers/App.jsx';
 const title = 'LinkedImdb';
 
 ReactDom.render((
-  // <BrowserRouter>
     <App />
-  // </BrowserRouter>
 ), document.getElementById('app'));
-
-
-// module.hot.accept();
-// console.log('My Minimal React Webpack Babel Setup');

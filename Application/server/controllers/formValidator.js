@@ -60,7 +60,6 @@ formValidator.validateSignupInput = (req, res, next) => {
     console.log(res.locals);
     return res.status(400).json(res.locals);
   }
-  // return res.status(200).end();
   return next();
 };
 
@@ -91,7 +90,6 @@ formValidator.validateLoginInput = (req, res, next) => {
   if (!formIsValid) {
     return res.status(400).json(res.locals);
   }
-  // return res.status(200).end();
   return next();
 };
 
