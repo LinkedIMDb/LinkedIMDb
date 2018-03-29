@@ -48,14 +48,19 @@ li {
 #dashboard-container {
   background-color: white;
   padding-bottom: 280px;
-  
+}
+
+#brand-heading {
+  font-size: 16px;
 }
 
 #search-input-container {
   position: relative;
   text-align: center;
-
+  top: 35px;
+  bottom: 0px;
 }
+
 
 #heading1 {
   background-color: #586CD1;
@@ -65,5 +70,12 @@ li {
   margin: 34px 18px;
   padding: 38px;
   border-radius: 7px;
+}
 
+div h5 {
+  position: absolute;
+  top: 185px;
+  bottom: 1px;
+  left: 127px;
+  right: 1px;
 }
