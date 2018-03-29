@@ -159,8 +159,6 @@ class App extends React.Component {
   }
 
   logOut() {
-    // set the state to not signed in
-    this.setState({signedIn: false, cookieChecked: false});
     // call an endpoint that will remove your cookie and redirect you to root.
     fetch('/logout', {
       method: 'GET',
@@ -174,11 +172,29 @@ class App extends React.Component {
   }
 
   getSaved() {
-    
+    fetch('/history/getHistory', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      this.setState({ connectResults: [], history: res })
+    })
   }
 
-  saveResult() {
-    
+  saveResult(newPath) {
+    fetch('/history/savePath', {
+      method: 'POST',
+      body: JSON.stringify(newPath),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      let signedIn = false;
+      if (res && res.path_id !== null) {
+        console.log('successfully added path!!!!!!!!!!!!!!!!!')
+      }
+      this.setState({});
+    });
   }
 
   render() {

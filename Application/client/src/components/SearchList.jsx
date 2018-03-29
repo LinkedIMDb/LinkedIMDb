@@ -12,7 +12,6 @@ const SearchList = (props) => {
         list = 'who ' + list;  
       }
      return <li key={i} className='list-item'>{list}</li>
-    
   })
 
   searchItems.unshift(<li key={-1} className='list-item'>{props.item[0].name}</li>);
