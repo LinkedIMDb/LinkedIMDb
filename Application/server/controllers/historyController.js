@@ -5,7 +5,16 @@ const historyController = {};
 
 // Retrieve a user's saved search history
 historyController.getHistory = (req, res, next) => {
-
+  db.query(
+    sqlstring.format(
+      'SELECT * FROM history WHERE user_id = ?', [res.locals.user_id]
+    ),
+    (err, results, fields) => {
+      console.log(results);
+      if (err) return res.status(500).send(err);
+      return res.send(results);
+    }
+  );
 }
 
 // var createUser = 'CREATE TABLE IF NOT EXISTS user (user_id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(45), email VARCHAR(45), password VARCHAR(100), firstname VARCHAR(20), lastname VARCHAR(45))';
