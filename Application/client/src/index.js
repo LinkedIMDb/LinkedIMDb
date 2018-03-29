@@ -6,17 +6,10 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import { browserHistory, Router } from 'react-router';
 // import routes from './routes.js';
 import { BrowserRouter } from 'react-router-dom'
-import App from './components/App.jsx';
-import routes from './routes.js';
+import App from './containers/App.jsx';
 
 const title = 'LinkedImdb';
 
 ReactDom.render((
-  // <BrowserRouter>
     <App />
-  // </BrowserRouter>
 ), document.getElementById('app'));
-
-
-// module.hot.accept();
-// console.log('My Minimal React Webpack Babel Setup');
