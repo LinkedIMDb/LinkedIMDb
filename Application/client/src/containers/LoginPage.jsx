@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LoginForm from '../components/LoginForm.jsx';
-
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Card, CardText } from 'material-ui/Card';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class LoginPage extends React.Component {
       user: {
         username: '',
         password: ''
-      }
+      },
+      signedIn: false
     };
 
     this.processForm = this.processForm.bind(this);
@@ -30,25 +32,28 @@ class LoginPage extends React.Component {
     event.preventDefault();
 
     // create a string for an HTTP body message
-    const username = encodeURIComponent(this.state.user.username);
-    const password = encodeURIComponent(this.state.user.password);
-    const formData = `username=${username}&password=${password}`;
+    const formData = {
+      username : this.state.user.username,
+      password : this.state.user.password,
+    };
 
     // create an AJAX request
     fetch('/auth/login', {
       method: 'POST',
       body: JSON.stringify(formData),
-      headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include' // COOKIES
       })
       .then(res => res.json())
       .then((res) => {
-        if (res.status === 200){
+        const errors = res.errors ? res.errors : {};
+        if (!Object.keys(errors).length){
           this.setState({
-            errors: {}
+            errors: {},
+            signedIn: true
           });
           console.log('Valid form.')
         } else {
-          const errors = res.errors ? res.errors : {};
           errors.summary = res.message;
           this.setState({ errors });
         }
@@ -74,12 +79,19 @@ class LoginPage extends React.Component {
    */
   render() {
     return (
-      <LoginForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
-      />
+      <div>
+        <LoginForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={this.state.errors}
+          user={this.state.user}
+        />
+        <Card>
+          <CardText>Need to make an account? <Link to='/signup'>Sign Up</Link></CardText>
+        </Card>
+
+        {this.state.signedIn && <Redirect to='/dashboard' />}
+      </div>
     );
   }
 
