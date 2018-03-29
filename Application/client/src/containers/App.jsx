@@ -189,11 +189,23 @@ class App extends React.Component {
   }
 
   getSaved() {
-    
+
   }
 
-  saveResult() {
-    
+  saveResult(newPath) {
+    fetch('/history/savePath', {
+      method: 'POST',
+      body: JSON.stringify(newPath),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      let signedIn = false;
+      if (res && res.path_id !== null) {
+        console.log('successfully added path!!!!!!!!!!!!!!!!!')
+      }
+      this.setState({});
+    });
   }
 
   render() {
