@@ -50,7 +50,6 @@ class Dashboard extends React.Component {
               primary style={style}
               onClick={this.props.saveResult}
             />
-
         {this.props.history.length > 0 && showHistory}
       </div>
     )
