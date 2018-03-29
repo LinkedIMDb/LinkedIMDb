@@ -27,7 +27,7 @@ class App extends React.Component {
       signedIn: false,
       cookieChecked: false,
       history: [],
-      errors: {}
+      errors: {},
     }
 
     this.changeUser = this.changeUser.bind(this);
@@ -35,6 +35,7 @@ class App extends React.Component {
     this.processLoginForm = this.processLoginForm.bind(this);
     this.checkHomeRoute = this.checkHomeRoute.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.getSaved = this.getSaved.bind(this);
   }
 
 
@@ -164,7 +165,9 @@ class App extends React.Component {
     })
   }
 
-
+  getSaved() {
+    
+  }
 
   render() {
     const HomeProps = () => {
@@ -177,7 +180,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} connectResults={this.state.connectResults} logOut={this.logOut}/>
     }
 
     return (
