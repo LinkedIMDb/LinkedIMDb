@@ -63,16 +63,6 @@ const SignUpForm = (props) => {
           value={props.user.password}
         />
       </div>
-      <div className="field-line">
-        <TextField
-          floatingLabelText="Confirm Password"
-          type="password"
-          name="password2"
-          onChange={props.onChange}
-          errorText={props.errors.password}
-          value={props.user.password2}
-        />
-      </div>
 
       <div className="button-line">
         <RaisedButton type="submit" label="Create A New Account" primary />

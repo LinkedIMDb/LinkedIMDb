@@ -31,12 +31,15 @@ app.use(cookieParser());
 // Check for authentication before any api call
 const authCheckMiddleware = require('./controllers/authController').checkAuthenticated;
 app.use('/api', authCheckMiddleware);
+app.use('/history', authCheckMiddleware);
 
 // Routes for authentication and api
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
+const historyRoutes = require('./routes/history');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+app.use('/history', historyRoutes);
 
 // Logout route
 app.get('/logout', authController.logOut);
