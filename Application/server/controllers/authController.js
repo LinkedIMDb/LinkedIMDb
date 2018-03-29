@@ -31,7 +31,7 @@ authController.createUser = (req, res, next) => {
 authController.verifyUser = (req, res, next) => {
   db.query(
     sqlstring.format(
-      'SELECT username, password, user_id FROM user WHERE username = ?', [req.body.username]
+      'SELECT firstname, lastname, username, password, user_id FROM user WHERE username = ?', [req.body.username]
     ),
     (err, results, fields) => {
       // Results is an array of "RowDataPacket"s
@@ -42,6 +42,8 @@ authController.verifyUser = (req, res, next) => {
           const user_id = results[0].user_id;
           const token = jwt.sign(results[0].user_id, jwtSecret);
           res.locals.jwt = token;
+          res.locals.firstname = results[0].firstname;
+          res.locals.lastname = results[0].lastname;
           return next();
         }
       }
@@ -64,16 +66,27 @@ authController.checkAuthenticated = (req, res, next) => {
     if (err) {
       return res.status(401).json({});
     }
-    // decoded token (using jwt secret);
+    // store user_id in res.locals
     res.locals.user_id = decoded;
     next();
   });
 }
 
+authController.getUserData = (req, res, next) => {
+  db.query(
+    sqlstring.format(
+      'SELECT firstname, lastname, username, user_id FROM user WHERE user_id = ?', [res.locals.user_id]
+    ),
+    (err, results, fields) => {
+      if (err) return res.status(500).send(err);
+      return res.send(results[0]);
+    }
+  );
+}
+
 authController.setJWTCookie = (req, res, next) => {
   const cookieVal = res.locals.jwt;
-  // res.cookie('testOOKIE', 'hi', {httpOnly: false, secure:false});
-  res.cookie('access_token', res.locals.jwt, { httpOnly: true, maxAge: 1000000 });
+  res.cookie('access_token', res.locals.jwt, { httpOnly: true, maxAge: 10000 });
   next();
 }
 

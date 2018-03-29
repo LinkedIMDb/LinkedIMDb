@@ -23,11 +23,12 @@ router.post('/login',
   formValidator.validateLoginInput,
   authController.verifyUser,
   authController.setJWTCookie,
-  (req, res) => res.status(200).json({})
+  (req, res) => res.status(200).json(res.locals)
 );
 
 router.get('/verify',
   authController.checkAuthenticated,
+  authController.getUserData,
   (req, res) => res.status(200).json(res.locals)
 )
 
