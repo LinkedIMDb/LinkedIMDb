@@ -3,6 +3,7 @@ import { Card, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Search_Inputs from '../components/Search_Inputs.jsx';
 import SearchList from '../components/SearchList.jsx';
+import { Link } from 'react-router-dom';
 
 
 
@@ -47,14 +48,19 @@ class Dashboard extends React.Component {
 
            <h1 id="brand-heading">LinkedIMDb</h1>
 
-          <div id="nav-buttons">
-            <RaisedButton label="Log Out"
-              primary style={style}
-              onClick={this.props.logOut}
-            />
+
+         <div id="nav-buttons">
+          <h1>Dashboard
+            <Link to={'/'}>
+              <RaisedButton label="Log Out"
+                primary style={style}
+                onClick={this.props.logOut}
+              />
+            </Link>
+
             <RaisedButton label="Saved"
               primary style={style}
-              onClick={this.props.logOut}
+              onClick={this.props.getSaved}
             />
           </div>
 

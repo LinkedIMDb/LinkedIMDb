@@ -10,7 +10,6 @@ import SignUpForm from '../components/SignUpForm.jsx';
 import Dashboard from './Dashboard.jsx';
 import Testing from '../components/Testing.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -50,13 +49,15 @@ class App extends React.Component {
         movie: 'High Society',
         department: 'Actor' }],
       history: [],
-      errors: {}
+      errors: {},
     }
 
     this.changeUser = this.changeUser.bind(this);
     this.processSignupForm = this.processSignupForm.bind(this);
     this.processLoginForm = this.processLoginForm.bind(this);
     this.checkHomeRoute = this.checkHomeRoute.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.getSaved = this.getSaved.bind(this);
   }
 
 
@@ -178,10 +179,17 @@ class App extends React.Component {
 
   logOut() {
     // set the state to not signed in
-    this.setState({signedIn: false});
+    this.setState({signedIn: false, cookieChecked: false});
+    // call an endpoint that will remove your cookie and redirect you to root.
+    fetch('/logout', {
+      method: 'GET',
+      credentials: 'include'
+    })
   }
 
-
+  getSaved() {
+    
+  }
 
   render() {
     const HomeProps = () => {

@@ -32,4 +32,6 @@ router.get('/verify',
   (req, res) => res.status(200).json(res.locals)
 )
 
+router.get('/logout', authController.logOut)
+
 module.exports = router;
