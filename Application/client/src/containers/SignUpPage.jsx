@@ -7,22 +7,6 @@ import { Card, CardText } from 'material-ui/Card';
 class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
-
-    // set the initial component state
-    // this.state = {
-    //   errors: {},
-    //   user: {
-    //     username: '',
-    //     email: '',
-    //     firstname: '',
-    //     lastname: '',
-    //     password: ''
-    //   },
-    //   signedIn: false
-    // };
-
-    // this.processForm = this.processForm.bind(this);
-    // this.changeUser = this.changeUser.bind(this);
   }
 
   /**
