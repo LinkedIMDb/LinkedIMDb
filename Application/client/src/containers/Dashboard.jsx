@@ -44,8 +44,12 @@ class Dashboard extends React.Component {
         <div id='heading1'>
           <h1>Dashboard
             <RaisedButton label="Log Out"
-            primary style={style}
-            onClick={this.props.logOut}
+              primary style={style}
+              onClick={this.props.logOut}
+            />
+            <RaisedButton label="Saved"
+              primary style={style}
+              onClick={this.props.logOut}
             />
           </h1>
         </div>
