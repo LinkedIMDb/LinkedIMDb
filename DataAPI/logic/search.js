@@ -1,6 +1,7 @@
 const request1 = require('./spiders/spiders.js').request1;
 const getInfo = require('./database/datamethods.js').getInfo;
 const User = require('../models/user');
+const getId = require('./database/datamethods.js').getId;
 
 
 async function searchBFS(name1, name2) {
@@ -20,22 +21,34 @@ async function searchBFS(name1, name2) {
   let queueBack = [];
   let cacheBack = {};
 
-  let name1Arr = name1.split(' ');
-  let name2Arr = name2.split(' ');
+  // let name1Arr = name1.split(' ');
+  // let name2Arr = name2.split(' ');
+  //
+  // console.log(name1Arr);
+  // console.log(name2Arr);
+  //
+  // let nameId1 = await request1(name1Arr[0], name1Arr[1]);
+  // let nameId2 = await request1(name2Arr[0], name2Arr[1]);
+  //
+  // console.log('***IN HERE***');
+  // console.log(nameId1);
+  // queueFront.push(nameId1._id);
+  // queueBack.push(nameId2._id);
+  //
+  // cacheFront[nameId1._id] = true;
+  // cacheBack[nameId2._id] = true;
 
-  console.log(name1Arr);
-  console.log(name2Arr);
+  const nameID1 = await getId(name1);
+  const nameID2 = await getId(name2);
+  console.log('names', nameID1, nameID2);
 
-  let nameId1 = await request1(name1Arr[0], name1Arr[1]);
-  let nameId2 = await request1(name2Arr[0], name2Arr[1]);
+  if (nameID1 === null || nameID2 === null) return 'invalid names';
 
-  console.log('***IN HERE***');
-  console.log(nameId1);
-  queueFront.push(nameId1._id);
-  queueBack.push(nameId2._id);
+  queueFront.push(nameID1);
+  queueBack.push(nameID2);
 
-  cacheFront[nameId1._id] = true;
-  cacheBack[nameId2._id] = true;
+  cacheFront[nameID1] = true;
+  cacheBack[nameID2] = true;
 
   console.log('***BEGIN LOOP***');
   while (found === false && (j <= queueFront.length - 1 && k <= queueBack.length -1)) {
