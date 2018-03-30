@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
               />
             </Link>
 
-            <RaisedButton label="Saved"
+            <RaisedButton label="View Saved Connections"
               primary style={style}
               onClick={this.props.getSaved}
             />
