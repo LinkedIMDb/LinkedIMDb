@@ -40,6 +40,7 @@ class App extends React.Component {
     this.getSaved = this.getSaved.bind(this);
     this.saveResult = this.saveResult.bind(this);
     this.getPath = this.getPath.bind(this);
+    this.resetErrors = this.resetErrors.bind(this);
   }
 
 
@@ -94,7 +95,7 @@ class App extends React.Component {
         }
       })
       .catch(err => {
-        console.log('ERROR!', err);
+        console.log(err);
       });
   }
 
@@ -132,7 +133,6 @@ class App extends React.Component {
               lastname: res.lastname
             }
           });
-          console.log('Valid form.')
         } else {
           errors.summary = res.message;
           this.setState({ errors });
@@ -160,7 +160,8 @@ class App extends React.Component {
   }
 
   logOut() {
-    // call an endpoint that will remove your cookie and redirect you to root.
+    this.setState({user:{}, history: [], connectResults: [], cookieChecked: false});
+    // Call an endpoint that will remove cookie and redirect user to '/'.
     fetch('/logout', {
       method: 'GET',
       credentials: 'include'
@@ -168,8 +169,7 @@ class App extends React.Component {
   }
 
   getPath(path) {
-    console.log('***FROM APP***\n', path);
-    this.setState({connectResults: path});
+    this.setState({connectResults: path, history: [], pathSaved: false});
   }
 
   getSaved() {
@@ -191,7 +191,6 @@ class App extends React.Component {
     }).then(res => res.json())
     .then(res => {
       if (res && res.path_id !== undefined) {
-        console.log('path successfully added');
       } else if (res && res.error !== undefined) {
         console.log(res.error);
       }
@@ -201,15 +200,19 @@ class App extends React.Component {
     });
   }
 
+  resetErrors() {
+    this.setState({ errors:{} });
+  }
+
   render() {
     const HomeProps = () => {
       return <Home user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} checkHomeRoute={this.checkHomeRoute}/>
     }
     const SignUpProps = () => {
-      return <SignUpPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} errors={this.state.errors} onSubmit={this.processSignupForm} onChange={this.changeUser}/>
+      return <SignUpPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} errors={this.state.errors} onSubmit={this.processSignupForm} onChange={this.changeUser} resetErrors={this.resetErrors}/>
     }
     const LoginProps = () => {
-      return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser}/>
+      return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser} resetErrors={this.resetErrors}/>
     }
     const DashboardProps = () => {
       return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} getPath={this.getPath} connectResults={this.state.connectResults} saveResult={this.saveResult} getSaved={this.getSaved} logOut={this.logOut}/>
