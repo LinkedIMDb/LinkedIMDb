@@ -19,8 +19,8 @@ class Dashboard extends React.Component {
     // Check history to see if user has requested to view saved connections
     const showHistory = [];
     if(this.props.history.length) {
-      this.props.history.forEach((path, i) => {
-        showHistory.push(<SearchList key={i} item={path} />)
+      this.props.history.forEach((savedItem, i) => {
+        showHistory.push(<div key={i}><SearchList item={savedItem.path} path_id={savedItem.path_id}/> <RaisedButton label="Remove" style={{marginLeft:600, marginTop:0}} onClick={() => this.props.removeItem(savedItem.path_id)}/></div>)
       });
     }
 

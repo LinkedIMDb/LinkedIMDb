@@ -7,14 +7,21 @@ const historyController = {};
 historyController.getHistory = (req, res, next) => {
   db.query(
     sqlstring.format(
-      'SELECT path FROM history WHERE user_id = ?', [res.locals.user_id]
+      'SELECT path, path_id FROM history WHERE user_id = ?', [res.locals.user_id]
     ),
     (err, results, fields) => {
-      results = results.map(RowDataPacket => {
-        return JSON.parse(RowDataPacket.path);
-      });
       if (err) return res.status(500).send(err);
-      return res.send(results);
+      connections = results.map(RowDataPacket => {
+        const pathObj = {
+          path: JSON.parse(RowDataPacket.path),
+          path_id: RowDataPacket.path_id
+        };
+        return pathObj;
+      });
+      // path_ids = results.map(RowDataPacket => {
+      //   return RowDataPacket.path_id;
+      // })
+      return res.send(connections);
     }
   );
 }
@@ -25,8 +32,6 @@ historyController.getHistory = (req, res, next) => {
 
 // save a user's new connection path
 historyController.savePath = (req, res, next) => {
-  // console.log(res.locals.user_id);
-  // console.log(req.body);
   db.query(
     sqlstring.format(
       'INSERT INTO history (user_id, path) VALUES (?,?)', [res.locals.user_id, JSON.stringify(req.body)]),
@@ -42,8 +47,6 @@ historyController.savePath = (req, res, next) => {
 }
 
 historyController.checkForPath = (req, res, next) => {
-  // console.log(res.locals.user_id);
-  // console.log(req.body);
   db.query(
     sqlstring.format(
     'SELECT path_id FROM history WHERE path = ? AND user_id = ?', [JSON.stringify(req.body), res.locals.user_id]),
@@ -52,6 +55,19 @@ historyController.checkForPath = (req, res, next) => {
       else {
         if (results.length) {return res.status(400).json({error: 'path already in db'})}
         return next();
+      }
+    }
+  );
+}
+
+historyController.removeItem = (req, res, next) => {
+  db.query(
+    sqlstring.format(
+    'DELETE FROM history WHERE path_id = ?', [req.body.path_id]),
+    (err, results, fields) => {
+      if (err) return res.status(400).send(err);
+      if (results) {
+        next();
       }
     }
   );
