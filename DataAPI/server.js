@@ -6,7 +6,8 @@ const connectionsController = require('./controllers/connectionsController');
 const mongoose = require('mongoose');
 const mongoURI = 'mongodb://localhost/user';
 const mLabURI = 'mongodb://superuser:supersecret@ds127899.mlab.com:27899/linkimdb'
-mongoose.connect(mLabURI);
+// mongoose.connect(mLabURI);
+mongoose.connect(mongoURI);
 
 const app = express();
 
