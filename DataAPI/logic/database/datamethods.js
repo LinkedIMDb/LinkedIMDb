@@ -8,8 +8,29 @@ const User = require('../../models/user');
 
 const dbMethods = {
   getInfo,
-  saveToDb
+  saveToDb,
+  getId
 }
+
+function getId(name) {
+  return new Promise (resolve => {
+    User.findOne({ "name" : { $regex : new RegExp(name, "i") } }, (err, user) => {
+      if (err) return console.log(err);
+      console.log('user', user);
+      if (user === null)  return resolve(null);
+      return resolve(user._id);
+    })
+  })
+}
+
+// function getId(name) {
+//   User.findOne({name}, (err, user) => {
+//     if (err) return console.log(err);
+//     console.log('user', user);
+//     if (user === null)  return null;
+//     return user._id;
+//   })
+// }
 
 async function getInfo(arr) {
   let results = [];

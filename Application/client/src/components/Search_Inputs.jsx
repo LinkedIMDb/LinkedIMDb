@@ -22,14 +22,14 @@ class Search_Inputs extends React.Component {
   handleChange(event) {
     const target = event.target;
     console.log(target);
-  
+
     this.setState( {
      [event.target.name]: event.target.value
     });
   }
   // Submit Search
   handleSubmit(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
     // Send fetch request with our two names
     let startName = this.state.searchTerm1;
@@ -40,6 +40,8 @@ class Search_Inputs extends React.Component {
         .then(res => res.json())
         .then(path => {
           // Set the connections Results with our response
+          console.log(path);
+          if (path === 'invalid names') return;
           this.props.getPath(path);
         })
   }
@@ -48,22 +50,22 @@ class Search_Inputs extends React.Component {
     return (
       <div id="search-input-container" >
         <form action='#' onSubmit={this.handleSubmit}>
-          <label>
+          <label class='input-labels'>
             Connect
-              <input 
+              <input
                 type="text"
-                id="searchTerm1" 
-                value={this.state.searchTerm1} 
-                name="searchTerm1" 
+                id="searchTerm1"
+                value={this.state.searchTerm1}
+                name="searchTerm1"
                 onChange={this.handleChange}
               />
           </label>
-          <label>
+          <label class='input-labels'>
            to
-              <input 
-                type="text" 
-                id="searchTerm2" 
-                value={this.state.searchTerm2} 
+              <input
+                type="text"
+                id="searchTerm2"
+                value={this.state.searchTerm2}
                 name="searchTerm2"
                 onChange={this.handleChange}
               />
@@ -74,7 +76,7 @@ class Search_Inputs extends React.Component {
         </form>
       </div>
     )
-  }  
+  }
 }
 
 export default Search_Inputs

@@ -41,6 +41,7 @@ class App extends React.Component {
     this.saveResult = this.saveResult.bind(this);
     this.getPath = this.getPath.bind(this);
     this.resetErrors = this.resetErrors.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
 
@@ -204,6 +205,19 @@ class App extends React.Component {
     this.setState({ errors:{} });
   }
 
+  removeItem(path_id) {
+    const fetchBody = { path_id }
+    fetch('/history/removeItem', {
+      method: 'DELETE',
+      body: JSON.stringify(fetchBody),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include'
+    }).then(res => res.json())
+    .then(res => {
+      this.setState({history: res});
+    });
+  }
+
   render() {
     const HomeProps = () => {
       return <Home user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} history={this.state.history} checkHomeRoute={this.checkHomeRoute}/>
@@ -215,7 +229,7 @@ class App extends React.Component {
       return <LoginPage user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} errors={this.state.errors} history={this.state.history} onSubmit={this.processLoginForm} onChange={this.changeUser} resetErrors={this.resetErrors}/>
     }
     const DashboardProps = () => {
-      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} getPath={this.getPath} connectResults={this.state.connectResults} saveResult={this.saveResult} getSaved={this.getSaved} logOut={this.logOut}/>
+      return <Dashboard user={this.state.user} signedIn={this.state.signedIn} cookieChecked={this.state.cookieChecked} pathSaved={this.state.pathSaved} history={this.state.history} getPath={this.getPath} connectResults={this.state.connectResults} saveResult={this.saveResult} getSaved={this.getSaved} logOut={this.logOut} removeItem={this.removeItem}/>
     }
 
     return (
