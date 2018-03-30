@@ -10,6 +10,7 @@ async function searchBFS(name1, name2) {
   let k = 0;
   let rem = 2;
   let found = false;
+  let globalId;
 
   let queue;
   let thisCache;
@@ -77,6 +78,7 @@ async function searchBFS(name1, name2) {
         for (let id in user.connections) {
           if (otherCache.hasOwnProperty(id)) {
             found = true;
+            globalId = id;
             otherCache[queue[i]] = id;
             break;
           }
@@ -91,7 +93,7 @@ async function searchBFS(name1, name2) {
   };
   console.log('***END LOOP***');
   if (found === true) {
-    let id = queue[i];
+    let id = globalId;
     let id1 = queue[i];
     let id2 = queue[i];
     let arr1 = [];
@@ -110,12 +112,26 @@ async function searchBFS(name1, name2) {
       arr2.push(cacheBack[id2]);
       id2 = cacheBack[id2];
     }
-    arr1.push(id);
+    if (rem % 2 !== 0) {
+      arr1.push(queue[i]);
+      arr1.push(id)
+    } else {
+      arr2.unshift(queue[i]);
+      arr2.unshift(id);
+    }
     arr2.reverse();
 
     // console.log('***PATH***\n', path);
     let path1 = await getInfo(arr1);
     let path2 = await getInfo(arr2);
+
+    let movieCopy = path1[path1.length - 1].movie;
+
+    for (let i = 0; i < path2.length - 1; i += 1) {
+      path2[i].movie = path2[i + 1].movie;
+    }
+    console.log('****PATH 2***\n', path2);
+    path2.pop();
     path2.reverse();
 
     let path = path1.concat(path2);
