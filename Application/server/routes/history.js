@@ -3,7 +3,8 @@ const router = new express.Router();
 const historyController = require('../controllers/historyController');
 
 router.get('/getHistory',
-  historyController.getHistory);
+  historyController.getHistory
+);
 
 
 router.post('/savePath',
@@ -12,6 +13,11 @@ router.post('/savePath',
   (req, res) => {
     res.status(200).json(res.locals);
   }
+);
+
+router.delete('/removeItem',
+  historyController.removeItem,
+  historyController.getHistory
 );
 
 module.exports = router;
