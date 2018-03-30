@@ -48,7 +48,7 @@ authController.verifyUser = (req, res, next) => {
           return next();
         }
       }
-      return res.status(400).send({errors: 'Invalid credentials'});
+      return res.status(400).send({errors: {username: 'Invalid credentials', password: 'Invalid credentials'}});
     }
   );
 }
@@ -56,7 +56,6 @@ authController.verifyUser = (req, res, next) => {
 // Check authorization header
 authController.checkAuthenticated = (req, res, next) => {
   if (!req.cookies.access_token) {
-    console.log('no access token');
     return res.status(401).json({});
   }
 

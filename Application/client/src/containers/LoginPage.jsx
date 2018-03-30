@@ -22,7 +22,7 @@ class LoginPage extends React.Component {
           user={this.props.user}
         />
         <Card className="container">
-          <CardText>Need to make an account? <Link to='/signup'>Sign Up</Link></CardText>
+          <CardText>Need to make an account? <Link to='/signup' onClick={this.props.resetErrors}>Sign Up</Link></CardText>
         </Card>
 
         {this.props.signedIn && <Redirect to='/dashboard' />}
